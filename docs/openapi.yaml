@@ -1,0 +1,20 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: API for working with the database for the Tasteorama website.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: This API was created by a student team to work with a NoSQL MongoDB database.
+
+tags:
+
+paths:
+
+servers:
+  - url: http://127.0.0.1:8080
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
