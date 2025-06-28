@@ -1,0 +1,27 @@
+tags:
+  - Categories
+summary: Get all categories
+operationId: getCategories
+description: Returns the list of recipe categories
+security: []
+responses:
+  '200':
+    description: Category list
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successful request for all categories
+            data:
+              type: array
+              items:$ref: ../../../schemas/categories/getAllCategories.yaml
