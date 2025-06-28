@@ -24,7 +24,7 @@ paths:
     post:
       $ref: ../swagger/paths/auth/refresh/post.yaml
 servers:
-  - url: http://127.0.0.1:8080
+  - url: https://recepy-api.onrender.com
 components:
   securitySchemes:
     bearerAuth:

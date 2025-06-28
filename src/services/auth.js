@@ -4,6 +4,7 @@ import { User } from '../db/models/users.js';
 import { randomBytes } from 'node:crypto';
 import { TIME_ACCESS_TOKEN, TIME_REFRESH_TOKEN } from '../constants/index.js';
 import { Session } from '../db/models/session.js';
+import { compareDate } from '../utils/isDateArrived.js';
 
 const createSession = () => {
   return {
@@ -75,7 +76,7 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
     throw createHttpError.Unauthorized('Refreschtoken is invalid');
   }
 
-  if (new Date() > session.refreshTokenValidUntil) {
+  if (!compareDate(session.refreshTokenValidUnti)) {
     throw createHttpError(401, 'Session token expired');
   }
 
