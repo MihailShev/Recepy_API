@@ -1,6 +1,6 @@
 import createHttpError from 'http-errors';
 
-import { compareDate } from '../exports/exportsFunction.js';
+import { compareDate } from '../utils/isDateArrived.js';
 import { Session } from '../db/models/session.js';
 import { User } from '../db/models/users.js';
 

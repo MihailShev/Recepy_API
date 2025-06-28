@@ -8,11 +8,23 @@ info:
   description: This API was created by a student team to work with a NoSQL MongoDB database.
 
 tags:
-
+  - name: Auth
+    description: Auth operations.
 paths:
-
+  /auth/register:
+    post:
+      $ref: ../swagger/paths/auth/register/post.yaml
+  /auth/login:
+    post:
+      $ref: ../swagger/paths/auth/login/post.yaml
+  /auth/logout:
+    post:
+      $ref: ../swagger/paths/auth/logout/post.yaml
+  /auth/refresh:
+    post:
+      $ref: ../swagger/paths/auth/refresh/post.yaml
 servers:
-  - url: http://127.0.0.1:8080
+  - url: https://recepy-api.onrender.com
 components:
   securitySchemes:
     bearerAuth:

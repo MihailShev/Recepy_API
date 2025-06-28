@@ -1,0 +1,21 @@
+type: object
+required:
+  - name
+  - email
+  - accessToken
+properties:
+  name:
+    type: string
+    minLength: 3
+    maxLength: 16
+    description: User`s name
+    example: Stepan Bandera
+  email:
+    type: string
+    maxLength: 128
+    description: user`s email
+    example: stepan@ukr.da
+  accessToken:
+    type: string
+    description: Token for access
+    example: 5H4mA9kN4mMs5teK8gobAU4qblreV+DjjQby3kxz

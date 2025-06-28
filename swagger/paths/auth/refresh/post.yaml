@@ -1,0 +1,51 @@
+tags:
+  - Auth
+summary: Refresh token user
+operationId: refreshUser
+description: Refresh token user
+security: []
+responses:
+  '200':
+    description: Refresh token
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully refreshed a session!
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  description: Refresh Token for access
+                  example: 5H4mA9kN4mMs5teK8gobAU4qblreV+DjjQby3kxz
+  '401':
+    description: Unauthorized Error
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: Session not found/Refreschtoken is invalid/Session token expired
+  '500':
+    $ref: ../../../components/responses/500.yaml

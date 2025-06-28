@@ -1,0 +1,18 @@
+type: object
+required:
+  - name
+  - email
+  - password
+properties:
+  name:
+    type: string
+    description: User's name
+    example: Stepan Bandera
+  email:
+    type: string
+    description: User's email
+    example: stepan@ukr.da
+  password:
+    type: string
+    description: User's password
+    example: step123an
