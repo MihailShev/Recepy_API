@@ -76,7 +76,7 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
     throw createHttpError.Unauthorized('Refreschtoken is invalid');
   }
 
-  if (!compareDate(session.refreshTokenValidUnti)) {
+  if (compareDate(session.refreshTokenValidUntil)) {
     throw createHttpError(401, 'Session token expired');
   }
 
