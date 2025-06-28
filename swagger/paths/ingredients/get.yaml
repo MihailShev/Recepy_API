@@ -1,0 +1,25 @@
+tags:
+  - Ingredients
+summary: Get all ingredients
+operationId: getIngredients
+description: Returns a list of all ingredients
+security: []
+responses:
+  '200':
+    description: List of ingredients
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            data:
+              type: array
+              items:
+                $ref: ../../components/schemas/ingredients.yaml
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

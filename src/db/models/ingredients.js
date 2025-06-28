@@ -1,3 +1,9 @@
-import mongoose, { model, Schema } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 
-export const Ingredients = model('session', ingredientsSchema);
+const ingredientsSchema = new Schema({
+  name: { type: String, required: true },
+  desc: { type: String, required: true },
+  img: { type: String, required: true },
+});
+
+export const Ingredients = model('ingredient', ingredientsSchema);
