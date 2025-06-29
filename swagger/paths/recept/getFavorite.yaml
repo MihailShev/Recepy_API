@@ -1,0 +1,42 @@
+tags:
+  - Recipes
+paths:
+  /api/recipes/favorites/{recipeId}:
+    post:
+      summary: Додати рецепт до списку улюблених (приватний)
+      description: Додає вказаний рецепт до списку улюблених авторизованого користувача.
+      tags:
+        - Recipes
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: recipeId
+          in: path
+          required: true
+          description: ID рецепту, який додається до улюблених
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Рецепт успішно додано до улюблених
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Recipe added to favorites
+                  data:
+                    $ref: ../../components/schemas/recipes.yaml
+        '401':
+          $ref: ../../../conponents/responses/401.yaml
+        '404':
+          $ref: ../../../conponents/responses/404.yaml
+        '409':
+          $ref: ../../../conponents/responses/409.yaml
+        '500':
+          $ref: ../../../conponents/responses/500.yaml

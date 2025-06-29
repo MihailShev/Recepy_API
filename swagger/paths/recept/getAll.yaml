@@ -1,0 +1,60 @@
+tags: 
+  - Recipes
+paths:
+  /api/recipes:
+    get:
+      summary: Отримати всі рецепти
+      description: Повертає список рецептів з підтримкою пагінації та фільтрації за категорією, назвою та інгредієнтом.
+      tags:
+        - Recipes
+      parameters:
+        - name: page
+          in: query
+          description: Номер сторінки (за замовчуванням 1)
+          required: false
+          schema:
+            type: integer
+        - name: perPage
+          in: query
+          description: Кількість рецептів на сторінку (за замовчуванням 12)
+          required: false
+          schema:
+            type: integer
+        - name: category
+          in: query
+          description: Категорія рецепту (наприклад: "Dessert", "Beef", тощо)
+          required: false
+          schema:
+            type: string
+        - name: ingredient
+          in: query
+          description: ID інгредієнту для фільтрації рецептів
+          required: false
+          schema:
+            type: string
+        - name: title
+          in: query
+          description: Частковий пошук за назвою рецепту
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успішне отримання списку рецептів
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  message:
+                    type: string
+                    example: Successfully found all recipes!
+                  data:
+                    $ref: ../../components/schemas/recipes.yaml
+        '500':
+          $ref: ../../../conponents/responses/500.yaml
+        '401':
+          $ref: ../../../conponents/responses/401.yaml

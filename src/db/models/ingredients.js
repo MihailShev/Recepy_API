@@ -1,4 +1,5 @@
-import mongoose, { Schema, model } from 'mongoose';
+
+import { Schema, model } from 'mongoose';
 
 const ingredientsSchema = new Schema({
   name: { type: String, required: true },
@@ -7,3 +8,4 @@ const ingredientsSchema = new Schema({
 });
 
 export const Ingredients = model('ingredients', ingredientsSchema);
+
