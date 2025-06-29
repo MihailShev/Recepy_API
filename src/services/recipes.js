@@ -45,8 +45,8 @@ export const getAllRecipes = async ({
 
 // створити публічний ендпоінт для отримання детальної інформації про рецепт за його id
 
-export const getRecipestById = async (contactId, userId) => {
-  const recipe = await Recipes.findOne({ _id: contactId, userId });
+export const getRecipestById = async (receptId) => {
+  const recipe = await Recipes.findOne({ _id: receptId });
   return recipe;
 };
 

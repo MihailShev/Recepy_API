@@ -33,10 +33,9 @@ export const getAllRecipesController = async (req, res, next) => {
 // створити публічний ендпоінт для отримання детальної інформації про рецепт за його id
 
 export const getRecipestByIdController = async (req, res, next) => {
-  const { contactId } = req.params;
-  const { id: userId } = req.user;
+  const { receptId } = req.params;
 
-  const recipes = await getRecipestById(contactId, userId);
+  const recipes = await getRecipestById(receptId);
 
   if (!recipes) {
     throw createHttpError.NotFound('Resept not found');
@@ -44,7 +43,7 @@ export const getRecipestByIdController = async (req, res, next) => {
 
   res.status(200).json({
     status: 200,
-    message: `Successfully found your resept with ${contactId}!`,
+    message: `Successfully found your resept with ${receptId}!`,
     data: recipes,
   });
 };
