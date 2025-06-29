@@ -6,4 +6,4 @@ const ingredientsSchema = new Schema({
   img: { type: String, required: true },
 });
 
-export const Ingredients = model('ingredient', ingredientsSchema);
+export const Ingredients = model('ingredients', ingredientsSchema);
