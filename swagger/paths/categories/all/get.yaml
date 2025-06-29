@@ -24,4 +24,7 @@ responses:
               example: Successful request for all categories
             data:
               type: array
-              items:$ref: ../../../schemas/categories/getAllCategories.yaml
+              items:
+                $ref: ../../../components/schemas/categories/getAllCategories.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml
