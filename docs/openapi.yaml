@@ -12,6 +12,8 @@ tags:
     description: Auth operations.
   - name: Categories
     description: Categories operations.
+  - name: Users
+    description: Users operations.
 paths:
   /auth/register:
     post:
@@ -28,6 +30,9 @@ paths:
   /categories/all:
     get:
       $ref: ../swagger/paths/categories/all/get.yaml
+  /users:
+    get:
+      $ref: ../swagger/paths/users/get.yaml
 servers:
   - url: https://recepy-api.onrender.com
 components:
