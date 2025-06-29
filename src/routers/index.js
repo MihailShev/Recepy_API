@@ -2,6 +2,7 @@ import { Router } from 'express';
 import authRouter from './auth.js';
 import categoriesRouter from './categories.js';
 import usersRouter from './users.js';
+import recipes from './recipes.js';
 
 const router = new Router();
 
@@ -13,6 +14,6 @@ router.use('/api/categories', categoriesRouter);
 
 // router.use('/api/ingredients');
 
-// router.use('/api/recipes');
+router.use('/api/recipes', recipes);
 
 export default router;
