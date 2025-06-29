@@ -1,3 +1,10 @@
-import mongoose, { model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
-export const Categories = model('session', categoriesSchema);
+const categoriesSchema = new Schema(
+  {
+    name: { type: String, required: true },
+  },
+  { timestamps: false, versionKey: false },
+);
+
+export const Categories = model('categories', categoriesSchema);

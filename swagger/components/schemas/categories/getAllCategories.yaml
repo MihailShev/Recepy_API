@@ -1,0 +1,13 @@
+type: object
+required:
+  - '_id'
+  - name
+properties:
+  _id:
+    type: string
+    description: Mongo ObjectId
+    example: 6462a9cd4c3d0qqq28391f8a
+  name:
+    type: string
+    description: Name categories
+    example: Lamb

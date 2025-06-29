@@ -20,6 +20,10 @@
       "description": "Auth operations."
     },
     {
+      "name": "Categories",
+      "description": "Categories operations."
+    },
+    {
       "name": "Users",
       "description": "Users operations."
     }
@@ -285,6 +289,53 @@
         }
       }
     },
+    "/categories/all": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Get all categories",
+        "operationId": "getCategories",
+        "description": "Returns the list of recipe categories",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Category list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successful request for all categories"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/getAllCategories"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/users": {
       "get": {
         "tags": [
@@ -395,6 +446,25 @@
             "type": "string",
             "description": "Token for access",
             "example": "5H4mA9kN4mMs5teK8gobAU4qblreV+DjjQby3kxz"
+          }
+        }
+      },
+      "getAllCategories": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Mongo ObjectId",
+            "example": "6462a9cd4c3d0qqq28391f8a"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name categories",
+            "example": "Lamb"
           }
         }
       },
