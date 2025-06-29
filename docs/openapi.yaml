@@ -27,6 +27,9 @@ paths:
   /auth/refresh:
     post:
       $ref: ../swagger/paths/auth/refresh/post.yaml
+  /ingredients:
+    get:
+      $ref: ../swagger/paths/ingredients/get.yaml
   /categories/all:
     get:
       $ref: ../swagger/paths/categories/all/get.yaml
