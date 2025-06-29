@@ -15,6 +15,8 @@ import { parsePaginationParems } from '../utils/parsePaginationParams.js';
 import { getEnvVar } from '../utils/getEnvVar.js';
 import { uploadToCloudinary } from '../utils/uploadToCloudinary.js';
 
+// створити публічний ендпоінт для пошуку рецептів за категорією, інгредієнтом, входженням пошукового значення в назву рецепту (з урахуванням логіки пагінації)
+
 export const getAllRecipesController = async (req, res, next) => {
   const { page, perPage } = parsePaginationParems(req.query);
   const filter = parseFilterParams(req.query);
@@ -27,6 +29,8 @@ export const getAllRecipesController = async (req, res, next) => {
     data: recipes,
   });
 };
+
+// створити публічний ендпоінт для отримання детальної інформації про рецепт за його id
 
 export const getRecipestByIdController = async (req, res, next) => {
   const { contactId } = req.params;
@@ -44,6 +48,8 @@ export const getRecipestByIdController = async (req, res, next) => {
     data: recipes,
   });
 };
+
+// створити приватний ендпоінт для створення власного рецепту
 
 const handleUploadImage = async (foto) => {
   if (!foto) return null;
@@ -80,6 +86,8 @@ export const createReceptController = async (req, res, next) => {
   });
 };
 
+// створити приватний ендпоінт для отримання власних рецептів
+
 export const getOwnRecipesController = async (req, res) => {
   const ownerId = req.user._id;
 
@@ -91,6 +99,8 @@ export const getOwnRecipesController = async (req, res) => {
     data: myRecept,
   });
 };
+
+// створити приватний ендпоінт для додавання рецепту до списку улюблених
 
 export const getFavoriteReceptController = async (req, res) => {
   const userId = req.user._id;
@@ -109,6 +119,8 @@ export const getFavoriteReceptController = async (req, res) => {
   });
 };
 
+//  створити приватний ендпоінт для видалення рецепту зі списку улюблених
+
 export const removeFavoriteReceptController = async (req, res) => {
   const userId = req.user._id;
   const { recipeId } = req.params;
@@ -121,6 +133,8 @@ export const removeFavoriteReceptController = async (req, res) => {
     data: { recipeId },
   });
 };
+
+// створити приватний ендпоінт для отримання улюблених рецептів
 
 export const getAllFavoriteRecipesController = async (req, res) => {
   const userId = req.user._id;
