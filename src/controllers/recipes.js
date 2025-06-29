@@ -3,9 +3,9 @@ import path from 'node:path';
 import createHttpError from 'http-errors';
 import {
   createRecept,
+  getAllFavoriteRecipes,
   getAllRecipes,
   getFavoriteRecept,
-  getFavoriteRecipes,
   getOwnRecipes,
   getRecipestById,
   removeFavoriteRecept,
@@ -101,9 +101,6 @@ export const getFavoriteReceptController = async (req, res) => {
   if (!recept) {
     throw createHttpError.NotFound('Recipe not found');
   }
-  if (recipeId) {
-    throw createHttpError.Conflict('Recipe already in favorites');
-  }
 
   res.status(200).json({
     status: 200,
@@ -118,14 +115,6 @@ export const removeFavoriteReceptController = async (req, res) => {
 
   await removeFavoriteRecept(userId, recipeId);
 
-  if (userId === null) {
-    throw createHttpError.NotFound('User not found');
-  }
-
-  if (!recipeId) {
-    throw createHttpError.Conflict('Recipe is not in favorites');
-  }
-
   res.status(200).json({
     status: 200,
     message: 'Recipe removed from favorites',
@@ -133,10 +122,10 @@ export const removeFavoriteReceptController = async (req, res) => {
   });
 };
 
-export const getFavoriteRecipesController = async (req, res) => {
+export const getAllFavoriteRecipesController = async (req, res) => {
   const userId = req.user._id;
 
-  const favoriteRecipes = await getFavoriteRecipes(userId);
+  const favoriteRecipes = await getAllFavoriteRecipes(userId);
 
   if (userId === null) {
     throw createHttpError.NotFound('User not found');

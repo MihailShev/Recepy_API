@@ -6,9 +6,9 @@ import { upload } from '../middlewares/upload.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import {
   createReceptController,
+  getAllFavoriteRecipesController,
   getAllRecipesController,
   getFavoriteReceptController,
-  getFavoriteRecipesController,
   getOwnRecipesController,
   getRecipestByIdController,
   removeFavoriteReceptController,
@@ -45,7 +45,7 @@ router.delete(
 router.get(
   '/favorites',
   authenticate,
-  ctrlWrapper(getFavoriteRecipesController),
+  ctrlWrapper(getAllFavoriteRecipesController),
 );
 
 export default router;

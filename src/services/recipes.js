@@ -71,18 +71,25 @@ export const getFavoriteRecept = async (userId, recipeId) => {
 
   return favoritRecept;
 };
-
 export const removeFavoriteRecept = async (userId, recipeId) => {
   const user = await User.findById(userId);
 
+  if (!user) {
+    throw createHttpError.NotFound('User not found');
+  }
+
   const index = user.favorites.indexOf(recipeId);
+  if (index === -1) {
+    throw createHttpError.Conflict('Recipe is not in favorites');
+  }
+
   user.favorites.splice(index, 1);
   await user.save();
 
   return recipeId;
 };
 
-export const getFavoriteRecipes = async (userId) => {
+export const getAllFavoriteRecipes = async (userId) => {
   const user = await User.findById(userId).populate({
     path: 'favorites',
   });
