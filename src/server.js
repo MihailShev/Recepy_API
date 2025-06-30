@@ -25,7 +25,12 @@ export function setupServer() {
 
   app.use(cors());
 
-  app.use(cookieParser());
+  app.use(
+    cookieParser({
+      origin: 'http://localhost:5173',
+      credentials: true,
+    }),
+  );
 
   app.get('/', (req, res) => {
     res.json({ message: 'Server started!' });
