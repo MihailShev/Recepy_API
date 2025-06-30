@@ -16,6 +16,12 @@ const userSchema = new Schema(
         ref: 'recipes',
       },
     ],
+    ownRecipes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'recipes',
+      },
+    ],
   },
   { timestamps: true, versionKey: false },
 );

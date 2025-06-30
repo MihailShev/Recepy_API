@@ -72,10 +72,11 @@ const handleUploadImage = async (foto) => {
 };
 
 export const createReceptController = async (req, res, next) => {
-  const photo = await handleUploadImage(req.file);
+  const thumb = await handleUploadImage(req.file);
   const recipe = await createRecept({
     ...req.body,
-    ...(photo && { photoUrl: photo }),
+    thumb,
+    owner: req.user.id,
   });
 
   res.status(201).json({
@@ -88,9 +89,9 @@ export const createReceptController = async (req, res, next) => {
 // створити приватний ендпоінт для отримання власних рецептів
 
 export const getOwnRecipesController = async (req, res) => {
-  const ownerId = req.user._id;
+  const ownerId = req.user.id;
 
-  const myRecept = getOwnRecipes({ owner: ownerId });
+  const myRecept = await getOwnRecipes({ owner: ownerId });
 
   res.status(200).json({
     status: 200,
@@ -102,7 +103,7 @@ export const getOwnRecipesController = async (req, res) => {
 // створити приватний ендпоінт для додавання рецепту до списку улюблених
 
 export const getFavoriteReceptController = async (req, res) => {
-  const userId = req.user._id;
+  const userId = req.user.id;
   const { recipeId } = req.params;
 
   const recept = await getFavoriteRecept(userId, recipeId);
@@ -121,7 +122,7 @@ export const getFavoriteReceptController = async (req, res) => {
 //  створити приватний ендпоінт для видалення рецепту зі списку улюблених
 
 export const removeFavoriteReceptController = async (req, res) => {
-  const userId = req.user._id;
+  const userId = req.user.id;
   const { recipeId } = req.params;
 
   await removeFavoriteRecept(userId, recipeId);
@@ -136,13 +137,13 @@ export const removeFavoriteReceptController = async (req, res) => {
 // створити приватний ендпоінт для отримання улюблених рецептів
 
 export const getAllFavoriteRecipesController = async (req, res) => {
-  const userId = req.user._id;
+  const userId = req.user.id;
 
-  const favoriteRecipes = await getAllFavoriteRecipes(userId);
-
-  if (userId === null) {
+ if (userId === null) {
     throw createHttpError.NotFound('User not found');
   }
+
+  const favoriteRecipes = await getAllFavoriteRecipes(userId);
 
   res.status(200).json({
     status: 200,

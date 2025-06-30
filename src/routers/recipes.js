@@ -4,6 +4,7 @@ import { validateBody } from '../middlewares/validateBody.js';
 import { isValidID } from '../middlewares/isValidID.js';
 import { upload } from '../middlewares/upload.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { parseIngredients } from '../middlewares/parseIngredient.js';
 import {
   createReceptController,
   getAllFavoriteRecipesController,
@@ -19,16 +20,22 @@ const router = Router();
 
 router.get('/', ctrlWrapper(getAllRecipesController));
 
-router.get('/:contactId', isValidID, ctrlWrapper(getRecipestByIdController));
+router.get('/own', authenticate, ctrlWrapper(getOwnRecipesController));
+
+router.get(
+  '/favorites',
+  authenticate,
+  ctrlWrapper(getAllFavoriteRecipesController),
+);
 
 router.post(
   '/',
+  authenticate,
+  parseIngredients,
   upload.single('thumb'),
   validateBody(validationCreateRecipe),
   ctrlWrapper(createReceptController),
 );
-
-router.get('/own', isValidID, ctrlWrapper(getOwnRecipesController));
 
 router.post(
   '/favorites/:recipeId',
@@ -42,10 +49,6 @@ router.delete(
   ctrlWrapper(removeFavoriteReceptController),
 );
 
-router.get(
-  '/favorites',
-  authenticate,
-  ctrlWrapper(getAllFavoriteRecipesController),
-);
+router.get('/:contactId', isValidID, ctrlWrapper(getRecipestByIdController));
 
 export default router;

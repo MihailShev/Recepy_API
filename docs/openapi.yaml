@@ -6,7 +6,6 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: This API was created by a student team to work with a NoSQL MongoDB database.
-
 tags:
   - name: Auth
     description: Auth operations.
@@ -14,6 +13,9 @@ tags:
     description: Categories operations.
   - name: Users
     description: Users operations.
+  - name: Recipes
+    description: Recipes operations.
+
 paths:
   /auth/register:
     post:
@@ -36,6 +38,28 @@ paths:
   /users:
     get:
       $ref: ../swagger/paths/users/get.yaml
+  /recipes:
+    get:
+      $ref: ../swagger/paths/recept/getAll.yaml
+    post:
+      $ref: ../swagger/paths/recept/postCreate.yaml
+
+  /recipes/own:
+    get:
+      $ref: ../swagger/paths/recept/getOwn.yaml
+
+  /recipes/favorites/{recipeId}:
+    get:
+      $ref: ../swagger/paths/recept/getAllFavorite.yaml
+    post:
+      $ref: ../swagger/paths/recept/postFavoriteId.yaml
+    delete:
+      $ref: ../swagger/paths/recept/deleteFavorite.yaml
+
+  /{contactId}:
+    get:
+      $ref: ../swagger/paths/recept/getId.yaml
+
 servers:
   - url: https://recepy-api.onrender.com
 components:

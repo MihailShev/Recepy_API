@@ -15,7 +15,7 @@ export const parsePaginationParems = (query) => {
   const { page, perPage } = query;
 
   const parsePage = parseNumber(page, 1);
-  const parsePerPage = parseNumber(perPage, 10);
+  const parsePerPage = parseNumber(perPage, 12);
 
   return {
     page: parsePage,

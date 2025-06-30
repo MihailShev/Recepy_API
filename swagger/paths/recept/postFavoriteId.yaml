@@ -1,21 +1,20 @@
 tags:
   - Recipes
-
-summary: Видалити рецепт зі списку улюблених (приватний)
-operationId: deleteFavoriteRecipe
-description: Видаляє вказаний рецепт із списку улюблених користувача.
+summary: Додати рецепт до списку улюблених (приватний)
+operationId: postFavoriteId
+description: Додає вказаний рецепт до списку улюблених авторизованого користувача.
 security:
   - bearerAuth: []
 parameters:
   - name: recipeId
     in: path
     required: true
-    description: ID рецепту, який потрібно видалити з улюблених
+    description: ID рецепту, який додається до улюблених
     schema:
       type: string
 responses:
   '200':
-    description: Рецепт успішно видалено з улюблених
+    description: Рецепт успішно додано до улюблених
     content:
       application/json:
         schema:
@@ -26,12 +25,9 @@ responses:
               example: 200
             message:
               type: string
-              example: Recipe removed from favorites
+              example: Recipe added to favorites
             data:
-              type: object
-              properties:
-                recipeId:
-                  type: string
+              $ref: ../../components/schemas/recipes.yaml
   '401':
     $ref: ../../components/responses/401.yaml
   '404':

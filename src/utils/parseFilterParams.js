@@ -29,7 +29,7 @@ export const parseFilterParams = (query) => {
   const { category, ingredient, title } = query;
 
   const parseCategory = parseCategoryType(category);
-  const parseIngredientId = isValidObjectId(ingredient);
+  const parseIngredientId = isValidObjectId(ingredient) ? ingredient : null;
   const parsedTitle =
     typeof title === 'string' && title.trim() !== '' ? title.trim() : null;
 

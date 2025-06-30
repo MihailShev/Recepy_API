@@ -22,7 +22,7 @@ export const getAllRecipes = async ({
   }
 
   if (ingredient) {
-    recipesQuery.where('ingredients').equals(ingredient);
+    recipesQuery.where('ingredients.id').equals(ingredient);
   }
 
   if (title) {
@@ -54,6 +54,11 @@ export const getRecipestById = async (receptId) => {
 
 export const createRecept = async (payload) => {
   const recipe = await Recipes.create(payload);
+
+  await User.findByIdAndUpdate(recipe.owner, {
+    $push: { ownRecipes: recipe._id },
+  });
+
   return recipe;
 };
 
@@ -108,10 +113,6 @@ export const getAllFavoriteRecipes = async (userId) => {
   const user = await User.findById(userId).populate({
     path: 'favorites',
   });
-
-  if (!user) {
-    throw createHttpError.NotFound('User not found');
-  }
 
   return user.favorites;
 };

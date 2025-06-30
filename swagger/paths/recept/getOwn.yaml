@@ -1,33 +1,29 @@
 tags:
   - Recipes
-paths:
-  /api/recipes/own:
-    get:
-      summary: Отримати власні рецепти (приватний)
-      description: Повертає список рецептів, створених авторизованим користувачем.
-      tags:
-        - Recipes
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Успішне отримання власних рецептів
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                    example: 200
-                  message:
-                    type: string
-                    example: Successfully found your recipes!
-                  data:
-                    type: array
-                    items:
-                      $ref: ../../components/schemas/recipes.yaml
-        '401':
-          $ref: ../../../conponents/responses/401.yaml
-        '500':
-          $ref: ../../../conponents/responses/500.yaml
+summary: Отримати власні рецепти (приватний)
+operationId: getOwn
+description: Повертає список рецептів, створених авторизованим користувачем.
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: Успішне отримання власних рецептів
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found your recipes!
+            data:
+              type: array
+              items:
+                $ref: ../../components/schemas/recipes.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

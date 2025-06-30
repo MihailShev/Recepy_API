@@ -2,7 +2,7 @@ tags:
   - Recipes
 
 summary: Видалити рецепт зі списку улюблених (приватний)
-operationId: deleteFavoriteRecipe
+operationId: removeFavoriteRecipe
 description: Видаляє вказаний рецепт із списку улюблених користувача.
 security:
   - bearerAuth: []
