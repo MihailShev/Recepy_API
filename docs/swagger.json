@@ -26,6 +26,10 @@
     {
       "name": "Users",
       "description": "Users operations."
+    },
+    {
+      "name": "Recipes",
+      "description": "Recipes operations."
     }
   ],
   "paths": {
@@ -301,6 +305,35 @@
         "responses": {
           "200": {
             "description": "List of ingredients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ingredients"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/categories/all": {
       "get": {
         "tags": [
@@ -327,19 +360,6 @@
                       "type": "integer",
                       "example": 200
                     },
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ingredients"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
                     "message": {
                       "type": "string",
                       "example": "Successful request for all categories"
@@ -354,6 +374,9 @@
                 }
               }
             }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -405,6 +428,524 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/recipes": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Отримати всі рецепти",
+        "operationId": "getAllRecipes",
+        "description": "Повертає список рецептів з підтримкою пагінації та фільтрації.",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Номер сторінки (за замовчуванням 1)",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "description": "Кількість рецептів на сторінку (за замовчуванням 12)",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "description": "Категорія рецепту",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ingredient",
+            "in": "query",
+            "description": "ID інгредієнта",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "title",
+            "in": "query",
+            "description": "Частковий пошук за назвою",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Успішне отримання списку",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found all recipes!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/recipes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Створити новий рецепт (приватний)",
+        "operationId": "createRecipe",
+        "description": "Дозволяє створити рецепт із фото, описом, інгредієнтами та категорією. Необхідна авторизація.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Grilled Chicken with Lemon"
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "Chicken"
+                  },
+                  "area": {
+                    "type": "string",
+                    "example": "American"
+                  },
+                  "instructions": {
+                    "type": "string",
+                    "example": "Season chicken, grill for 10 minutes per side."
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "A delicious grilled chicken dish with lemon and herbs."
+                  },
+                  "time": {
+                    "type": "integer",
+                    "example": 45
+                  },
+                  "cals": {
+                    "type": "integer",
+                    "example": 500
+                  },
+                  "ingredients": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "example": "640c2dd963a319ea671e37aa"
+                        },
+                        "measure": {
+                          "type": "string",
+                          "example": "150g"
+                        }
+                      }
+                    },
+                    "example": [
+                      {
+                        "id": "640c2dd963a319ea671e37aa",
+                        "measure": "150g"
+                      },
+                      {
+                        "id": "640c2dd963a319ea671e367e",
+                        "measure": "2 tbsp"
+                      }
+                    ]
+                  },
+                  "ingredientAmount": {
+                    "type": "integer",
+                    "example": 2
+                  },
+                  "thumb": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Рецепт успішно створено",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully created a recipe!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/recipes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/recipes/own": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Отримати власні рецепти (приватний)",
+        "operationId": "getOwn",
+        "description": "Повертає список рецептів, створених авторизованим користувачем.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успішне отримання власних рецептів",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found your recipes!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/recipes"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/recipes/favorites/{recipeId}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Видалити рецепт зі списку улюблених (приватний)",
+        "operationId": "deleteFavoriteRecipe",
+        "description": "Видаляє вказаний рецепт із списку улюблених користувача.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "required": true,
+            "description": "ID рецепту, який потрібно видалити з улюблених",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Рецепт успішно видалено з улюблених",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Recipe removed from favorites"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "recipeId": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Додати рецепт до списку улюблених (приватний)",
+        "operationId": "postFavoriteId",
+        "description": "Додає вказаний рецепт до списку улюблених авторизованого користувача.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "required": true,
+            "description": "ID рецепту, який додається до улюблених",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Рецепт успішно додано до улюблених",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Recipe added to favorites"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/recipes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Видалити рецепт зі списку улюблених (приватний)",
+        "operationId": "removeFavoriteRecipe",
+        "description": "Видаляє вказаний рецепт із списку улюблених користувача.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "recipeId",
+            "in": "path",
+            "required": true,
+            "description": "ID рецепту, який потрібно видалити з улюблених",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Рецепт успішно видалено з улюблених",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Recipe removed from favorites"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "recipeId": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/{contactId}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Отримати рецепт за ID (приватний)",
+        "operationId": "getId",
+        "description": "Повертає один рецепт, створений користувачем, за його унікальним ідентифікатором.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "contactId",
+            "in": "path",
+            "required": true,
+            "description": "Унікальний ідентифікатор рецепта",
+            "schema": {
+              "type": "string",
+              "example": "665123abc321cc0011aa23ef"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Успішне отримання рецепта",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found your recipe with 665123abc321cc0011aa23ef!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/recipes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           },
           "500": {
             "$ref": "#/components/responses/500"
@@ -492,6 +1033,9 @@
           "img": {
             "type": "string",
             "example": "https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e37aa.jpg"
+          }
+        }
+      },
       "getAllCategories": {
         "type": "object",
         "required": [
@@ -553,6 +1097,88 @@
             "example": "2025-06-27T08:41:53.166Z"
           }
         }
+      },
+      "recipes": {
+        "type": "object",
+        "required": [
+          "_id",
+          "title",
+          "category",
+          "owner",
+          "area",
+          "instructions",
+          "description",
+          "thumb",
+          "time",
+          "ingredients",
+          "timestamps"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Recept id",
+            "example": "6841738d9abba11274e4c270"
+          },
+          "name": {
+            "type": "string",
+            "description": "Recept title",
+            "example": "Battenberg Cake"
+          },
+          "category": {
+            "type": "string",
+            "description": "Type Recept",
+            "enum": [
+              "Dessert",
+              "Beef",
+              "Lamb",
+              "Chicken",
+              "Seafood",
+              "Miscellaneous",
+              "Breakfast",
+              "Pork"
+            ],
+            "example": "Pork"
+          },
+          "owner": {
+            "type": "string",
+            "description": "Recept userId",
+            "example": "684173599abba11274e4c268"
+          },
+          "area": {
+            "type": "string",
+            "description": "Place of origin",
+            "example": "British"
+          },
+          "instructions": {
+            "type": "string",
+            "description": "Instructions recept",
+            "example": "Heat oven to 180C/160C fan/gas 4 and line the base and sides of a 20cm square tin with baking parchment (the easiest...."
+          },
+          "description": {
+            "type": "string",
+            "description": "Rescription recept",
+            "example": "A classic British cake made with almond sponge cake and covered with marzipan. It is traditionally pink and yellow checkered in appearance."
+          },
+          "thumb": {
+            "type": "string",
+            "description": "foto recept",
+            "example": "https://ftp.goit.study/img/so-yummy/preview/Battenberg%20Cake.jpg"
+          },
+          "time": {
+            "type": "string",
+            "description": "Recipe preparation time",
+            "example": 60
+          },
+          "ingredients": {
+            "$ref": "#/components/schemas/ingredients"
+          },
+          "timestamps": {
+            "type": "object",
+            "format": "date-time",
+            "description": "User created",
+            "example": "2025-06-06T17:54:59.164+00:00 2025-06-06T17:54:59.164+00:00"
+          }
+        }
       }
     },
     "responses": {
@@ -594,6 +1220,43 @@
                 "message": {
                   "type": "string",
                   "example": "Unauthorized Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not found"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found"
+                    }
+                  }
                 }
               }
             }

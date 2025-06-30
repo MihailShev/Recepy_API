@@ -15,7 +15,7 @@ export function setupServer() {
   const app = express();
   const PORT = getEnvVar('PORT');
 
-  app.use('/photo', express.static(path.resolve('src', 'uploads', 'photo')));
+  app.use('/thumb', express.static(path.resolve('src', 'uploads', 'photo')));
 
   app.use('/api-docs', swaggerDocs());
 

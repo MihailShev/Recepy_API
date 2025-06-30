@@ -1,9 +1,9 @@
-import mongoose, { Schema, model } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
-const ingredientsSchema = new Schema({
+const ingredientSchema = new Schema({
   name: { type: String, required: true },
   desc: { type: String, required: true },
-  img: { type: String, required: true },
+  img: { type: String },
 });
 
-export const Ingredients = model('ingredients', ingredientsSchema);
+export const Ingredient = model('ingredients', ingredientSchema);

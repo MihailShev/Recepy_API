@@ -1,13 +1,19 @@
 import Joi from 'joi';
 
 export const validationCreateRecipe = Joi.object({
-  name: Joi.string().max(64).required(),
-  decr: Joi.string().max(200).required(),
-  cookiesTime: Joi.number().min(1).max(360).required(),
-  cals: Joi.number().min(1).max(10000),
+  title: Joi.string().max(64).required(),
   category: Joi.string().required(),
-  ingredient: Joi.string().required(),
-  ingredientAmount: Joi.number().min(2).max(16).required(),
-  instruction: Joi.string().max(1200).required(),
-  recipeImg: Joi.any().meta({ swaggerType: 'file' }).optional(),
+  area: Joi.string().max(20),
+  instructions: Joi.string().max(1200).required(),
+  description: Joi.string().max(200).required(),
+  time: Joi.number().min(1).max(360).required(),
+  cals: Joi.number().min(1).max(10000),
+  ingredients: Joi.array()
+    .items(
+      Joi.object({
+        id: Joi.string().hex().length(24).required(),
+        measure: Joi.string().required(),
+      }),
+    )
+    .required(),
 });

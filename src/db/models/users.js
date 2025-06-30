@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import mongoose, { model, Schema } from 'mongoose';
 
 const userSchema = new Schema(
   {
@@ -10,6 +10,18 @@ const userSchema = new Schema(
       match: [/.+@.+\..+/, 'Please enter a valid email address'],
     },
     password: { type: String, required: true },
+    favorites: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'recipes',
+      },
+    ],
+    ownRecipes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'recipes',
+      },
+    ],
   },
   { timestamps: true, versionKey: false },
 );

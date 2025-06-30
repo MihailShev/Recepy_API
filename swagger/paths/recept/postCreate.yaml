@@ -1,0 +1,81 @@
+tags:
+  - Recipes
+summary: Створити новий рецепт (приватний)
+operationId: createRecipe
+description: Дозволяє створити рецепт із фото, описом, інгредієнтами та категорією. Необхідна авторизація.
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          title:
+            type: string
+            example: Grilled Chicken with Lemon
+          category:
+            type: string
+            example: Chicken
+          area:
+            type: string
+            example: American
+          instructions:
+            type: string
+            example: Season chicken, grill for 10 minutes per side.
+          description:
+            type: string
+            example: A delicious grilled chicken dish with lemon and herbs.
+          time:
+            type: integer
+            example: 45
+          cals:
+            type: integer
+            example: 500
+          ingredients:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 640c2dd963a319ea671e37aa
+                measure:
+                  type: string
+                  example: 150g
+            example:
+              - id: '640c2dd963a319ea671e37aa'
+                measure: '150g'
+              - id: '640c2dd963a319ea671e367e'
+                measure: '2 tbsp'
+          ingredientAmount:
+            type: integer
+            example: 2
+          thumb:
+            type: string
+            format: binary
+responses:
+  '201':
+    description: Рецепт успішно створено
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created a recipe!
+            data:
+              $ref: ../../components/schemas/recipes.yaml
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '404':
+    $ref: ../../components/responses/404.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml
