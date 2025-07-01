@@ -148,13 +148,19 @@
                     "data": {
                       "type": "object",
                       "required": [
-                        "accessToken"
+                        "accessToken",
+                        "name"
                       ],
                       "properties": {
                         "accessToken": {
                           "type": "string",
                           "description": "Token for access",
                           "example": "5H4mA9kN4mMs5teK8gobAU4qblreV+DjjQby3kxz"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Current user name",
+                          "example": "Stepan Bandera"
                         }
                       }
                     }

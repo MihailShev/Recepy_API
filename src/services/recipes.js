@@ -34,7 +34,11 @@ export const getAllRecipes = async ({
     recipesQuery
       .skip(skip)
       .limit(limit)
-      .populate('ingredients.id', 'name')
+      //  .populate('ingredients.id', 'name')
+      .populate({
+        path: 'ingredients.id',
+        select: 'name -_id',
+      })
       .exec(),
   ]);
 
@@ -46,7 +50,11 @@ export const getAllRecipes = async ({
 // створити публічний ендпоінт для отримання детальної інформації про рецепт за його id
 
 export const getRecipestById = async (receptId) => {
-  const recipe = await Recipes.findOne({ _id: receptId });
+  const recipe = await Recipes.findById(receptId)
+    .populate({
+    path: 'ingredients.id',
+    select: 'name -_id'
+  });
   return recipe;
 };
 

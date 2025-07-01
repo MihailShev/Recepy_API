@@ -52,10 +52,12 @@ export const loginUser = async (email, password) => {
 
   await Session.deleteOne({ userId: user._id });
   const session = createSession();
-  return Session.create({
+  const newSession = await Session.create({
     userId: user._id,
     ...session,
   });
+  
+  return { name: user.name, ...newSession.toObject()};
 };
 
 export const logoutUser = async (sessionId) => {
