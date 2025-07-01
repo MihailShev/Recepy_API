@@ -23,14 +23,14 @@ export function setupServer() {
 
   app.use(pino({ transport: { target: 'pino-pretty' } }));
 
-  app.use(cors());
-
   app.use(
-    cookieParser({
+    cors({
       origin: 'http://localhost:5173',
       credentials: true,
     }),
   );
+
+  app.use(cookieParser());
 
   app.get('/', (req, res) => {
     res.json({ message: 'Server started!' });
