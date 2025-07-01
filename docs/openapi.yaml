@@ -38,6 +38,8 @@ paths:
   /users:
     get:
       $ref: ../swagger/paths/users/get.yaml
+    patch:
+      $ref: ../swagger/paths/users/patch.yaml
   /recipes:
     get:
       $ref: ../swagger/paths/recept/getAll.yaml

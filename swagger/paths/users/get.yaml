@@ -24,7 +24,7 @@ responses:
               type: string
               example: Successfully found info about current user
             data:
-              $ref: ../../components/schemas/users.yaml
+              $ref: ../../components/schemas/users/usersWithRecipes.yaml
   '401':
     $ref: ../../components/responses/401.yaml
   '500':

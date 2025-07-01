@@ -32,3 +32,11 @@ properties:
     format: date-time
     description: Contact updated at
     example: 2025-06-27T08:41:53.166Z
+  favorites:
+    type: array
+    items:
+      $ref: '../recipes.yaml'
+  ownRecipes:
+    type: array
+    items:
+      $ref: '../recipes.yaml'

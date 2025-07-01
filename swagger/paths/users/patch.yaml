@@ -1,0 +1,48 @@
+tags:
+  - Users
+summary: Ipdate users info
+operationId: updateUserInfo
+description: Update info about current user, name or email
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          email:
+            type: string
+            maxLength: 128
+            description: user`s email
+            example: steve@main.kraft
+          name:
+            type: string
+            minLength: 3
+            maxLength: 16
+            description: User`s name
+            example: Steve
+responses:
+  '200':
+    description: Update info about current user
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully update contact info current user
+            data:
+              $ref: ../../components/schemas/users/users.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

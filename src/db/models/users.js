@@ -10,18 +10,15 @@ const userSchema = new Schema(
       match: [/.+@.+\..+/, 'Please enter a valid email address'],
     },
     password: { type: String, required: true },
-    favorites: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'recipes',
-      },
-    ],
-    ownRecipes: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'recipes',
-      },
-    ],
+    favorites: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'recipes' }],
+      default: [],
+    },
+
+    ownRecipes: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'recipes' }],
+      default: [],
+    },
   },
   { timestamps: true, versionKey: false },
 );
