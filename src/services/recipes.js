@@ -1,5 +1,5 @@
 import { Recipes } from '../db/models/recipes.js';
-import '../db/models/ingredients.js';
+// import '../db/models/ingredients.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { User } from '../db/models/users.js';
 import createHttpError from 'http-errors';
@@ -34,7 +34,7 @@ export const getAllRecipes = async ({
     recipesQuery
       .skip(skip)
       .limit(limit)
-      .populate('ingredients.id', 'name')
+      // .populate('ingredients.ingredient', 'name')
       .exec(),
   ]);
 
@@ -46,7 +46,19 @@ export const getAllRecipes = async ({
 // створити публічний ендпоінт для отримання детальної інформації про рецепт за його id
 
 export const getRecipestById = async (receptId) => {
-  const recipe = await Recipes.findOne({ _id: receptId });
+  const recipe = await Recipes.findById(receptId)
+    .populate({
+      path: 'ingredients.ingredient',
+      select: 'name -_id',
+    })
+    .lean();
+
+  if (!recipe) return null;
+
+  recipe.ingredients = recipe.ingredients.map((item) => ({
+    name: item.ingredient?.name || 'Unknown',
+    measure: item.measure,
+  }));
   return recipe;
 };
 
@@ -116,3 +128,4 @@ export const getAllFavoriteRecipes = async (userId) => {
 
   return user.favorites;
 };
+

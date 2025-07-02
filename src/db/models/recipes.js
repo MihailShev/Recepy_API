@@ -40,23 +40,30 @@ const recipesSchema = new Schema(
       required: false,
       default: null,
     },
+    cals: {
+      type: Number,
+      requied: false,
+    },
     time: {
       type: String,
       required: true,
     },
-    ingredients: [
-      {
-        id: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true,
-          ref: 'ingredients',
+    ingredients: {
+      type: [
+        {
+          ingredient: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'ingredients', 
+          },
+          measure: {
+            type: String,
+            required: true,
+          },
         },
-        measure: {
-          type: String,
-          required: true,
-        },
-      },
-    ],
+      ],
+      default: [],
+    },
   },
   {
     timestamps: true,

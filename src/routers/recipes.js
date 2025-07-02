@@ -40,15 +40,17 @@ router.post(
 router.post(
   '/favorites/:recipeId',
   authenticate,
+  isValidID,
   ctrlWrapper(getFavoriteReceptController),
 );
 
 router.delete(
   '/favorites/:recipeId',
   authenticate,
+  isValidID,
   ctrlWrapper(removeFavoriteReceptController),
 );
 
-router.get('/:contactId', isValidID, ctrlWrapper(getRecipestByIdController));
+router.get('/:recipeID', isValidID, ctrlWrapper(getRecipestByIdController));
 
 export default router;

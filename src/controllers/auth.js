@@ -22,17 +22,18 @@ export const registerUserController = async (req, res) => {
   res.status(201).json({
     status: 201,
     message: 'Successfully registered and logged a user!',
-    data: user ,
+    data: user,
   });
 };
 
 export const loginUserController = async (req, res) => {
   const session = await loginUser(req.body.email, req.body.password);
   setupSession(res, session);
+ 
   res.status(200).json({
     status: 200,
     message: 'Successfully logged in an user!',
-    data: { accessToken: session.accessToken },
+    data: { accessToken: session.accessToken, name: session.name },
   });
 };
 
