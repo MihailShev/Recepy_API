@@ -1,13 +1,13 @@
 tags:
   - Recipes
-summary: Отримати власні рецепти (приватний)
+summary: Get own recipes (private)
 operationId: getOwn
-description: Повертає список рецептів, створених авторизованим користувачем.
+description: Returns a list of recipes created by the authenticated user.
 security:
   - bearerAuth: []
 responses:
   '200':
-    description: Успішне отримання власних рецептів
+    description: Successfully retrieved own recipes
     content:
       application/json:
         schema:

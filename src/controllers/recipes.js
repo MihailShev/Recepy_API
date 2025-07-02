@@ -34,6 +34,7 @@ export const getAllRecipesController = async (req, res, next) => {
 
 export const getRecipestByIdController = async (req, res, next) => {
   const { receptId } = req.params;
+  console.log(receptId);
 
   const recipes = await getRecipestById(receptId);
 
@@ -139,7 +140,7 @@ export const removeFavoriteReceptController = async (req, res) => {
 export const getAllFavoriteRecipesController = async (req, res) => {
   const userId = req.user.id;
 
- if (userId === null) {
+  if (userId === null) {
     throw createHttpError.NotFound('User not found');
   }
 
