@@ -654,7 +654,7 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "id": {
+                        "ingredient": {
                           "type": "string",
                           "example": "640c2dd963a319ea671e37aa"
                         },
@@ -666,11 +666,11 @@
                     },
                     "example": [
                       {
-                        "id": "640c2dd963a319ea671e37aa",
+                        "ingredient": "640c2dd963a319ea671e37aa",
                         "measure": "150g"
                       },
                       {
-                        "id": "640c2dd963a319ea671e367e",
+                        "ingredient": "640c2dd963a319ea671e367e",
                         "measure": "2 tbsp"
                       }
                     ]
@@ -976,9 +976,9 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "Отримати рецепт за ID (приватний)",
+        "summary": "Отримати рецепт за ID",
         "operationId": "getId",
-        "description": "Повертає один рецепт, створений користувачем, за його унікальним ідентифікатором.",
+        "description": "Повертає один рецепт за його унікальним ідентифікатором.",
         "security": [
           {
             "bearerAuth": []
@@ -1146,6 +1146,7 @@
           "description",
           "thumb",
           "time",
+          "cals",
           "ingredients",
           "timestamps"
         ],
@@ -1204,6 +1205,13 @@
             "type": "string",
             "description": "Recipe preparation time",
             "example": 60
+          },
+          "cals": {
+            "type": "number",
+            "description": "amount of calories",
+            "minimum": 1,
+            "maximum": 10000,
+            "example": 350
           },
           "ingredients": {
             "$ref": "#/components/schemas/ingredients"

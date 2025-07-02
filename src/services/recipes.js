@@ -34,11 +34,7 @@ export const getAllRecipes = async ({
     recipesQuery
       .skip(skip)
       .limit(limit)
-      //  .populate('ingredients.id', 'name')
-      // .populate({
-      //   path: 'ingredients.id',
-      //   select: 'name -_id',
-      // })
+      // .populate('ingredients.ingredient', 'name')
       .exec(),
   ]);
 
@@ -52,17 +48,17 @@ export const getAllRecipes = async ({
 export const getRecipestById = async (receptId) => {
   const recipe = await Recipes.findById(receptId)
     .populate({
-      path: 'ingredients.id',
+      path: 'ingredients.ingredient',
       select: 'name -_id',
     })
     .lean();
-console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", recipe.ingredients.map(i => i.id)); 
-  // if (!recipe) return null;
 
-  // recipe.ingredients = recipe.ingredients.map((item) => ({
-  //   name: item.id?.name || 'Unknown',
-  //   measure: item.measure,
-  // }));
+  if (!recipe) return null;
+
+  recipe.ingredients = recipe.ingredients.map((item) => ({
+    name: item.ingredient?.name || 'Unknown',
+    measure: item.measure,
+  }));
   return recipe;
 };
 
@@ -132,3 +128,4 @@ export const getAllFavoriteRecipes = async (userId) => {
 
   return user.favorites;
 };
+

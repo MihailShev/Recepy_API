@@ -1,8 +1,8 @@
 tags:
   - Recipes
-summary: Отримати рецепт за ID (приватний)
+summary: Отримати рецепт за ID
 operationId: getId
-description: Повертає один рецепт, створений користувачем, за його унікальним ідентифікатором.
+description: Повертає один рецепт за його унікальним ідентифікатором.
 security:
   - bearerAuth: []
 parameters:

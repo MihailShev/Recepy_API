@@ -34,6 +34,7 @@ export const getAllRecipesController = async (req, res, next) => {
 
 export const getRecipestByIdController = async (req, res, next) => {
   const { recipeID } = req.params;
+  // await migrateIngredientField();
   const recipes = await getRecipestById(recipeID);
 
   if (!recipes) {
