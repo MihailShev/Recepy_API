@@ -1,5 +1,5 @@
 import { Recipes } from '../db/models/recipes.js';
-import '../db/models/ingredients.js';
+// import '../db/models/ingredients.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { User } from '../db/models/users.js';
 import createHttpError from 'http-errors';
@@ -35,10 +35,10 @@ export const getAllRecipes = async ({
       .skip(skip)
       .limit(limit)
       //  .populate('ingredients.id', 'name')
-      .populate({
-        path: 'ingredients.id',
-        select: 'name -_id',
-      })
+      // .populate({
+      //   path: 'ingredients.id',
+      //   select: 'name -_id',
+      // })
       .exec(),
   ]);
 
@@ -52,9 +52,17 @@ export const getAllRecipes = async ({
 export const getRecipestById = async (receptId) => {
   const recipe = await Recipes.findById(receptId)
     .populate({
-    path: 'ingredients.id',
-    select: 'name -_id'
-  });
+      path: 'ingredients.id',
+      select: 'name -_id',
+    })
+    .lean();
+console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", recipe.ingredients.map(i => i.id)); 
+  // if (!recipe) return null;
+
+  // recipe.ingredients = recipe.ingredients.map((item) => ({
+  //   name: item.id?.name || 'Unknown',
+  //   measure: item.measure,
+  // }));
   return recipe;
 };
 
