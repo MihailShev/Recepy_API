@@ -39,12 +39,14 @@ router.post(
 
 router.post(
   '/favorites/:recipeId',
+  isValidID,
   authenticate,
   ctrlWrapper(getFavoriteReceptController),
 );
 
 router.delete(
   '/favorites/:recipeId',
+  isValidID,
   authenticate,
   ctrlWrapper(removeFavoriteReceptController),
 );

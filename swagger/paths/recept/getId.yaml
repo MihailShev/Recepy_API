@@ -1,10 +1,9 @@
 tags:
   - Recipes
-summary: Get a recipe by ID (private)
+summary: Get a recipe by ID
 operationId: getId
 description: Returns a single recipe created by the user, based on its unique identifier.
-security:
-  - bearerAuth: []
+security: []
 parameters:
   - name: recipeId
     in: path

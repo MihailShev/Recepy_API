@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import createHttpError from 'http-errors';
 import { User } from '../db/models/users.js';
 import { randomBytes } from 'node:crypto';
-import { TIME_ACCESS_TOKEN, TIME_REFRESH_TOKEN } from '../constants/index.js';
+import { THIRTY_DAY, FIFTEEN_MINUTES } from '../constants/index.js';
 import { Session } from '../db/models/session.js';
 import { compareDate } from '../utils/isDateArrived.js';
 
@@ -10,8 +10,8 @@ const createSession = () => {
   return {
     accessToken: randomBytes(30).toString('base64'),
     refreshToken: randomBytes(30).toString('base64'),
-    accessTokenValidUntil: TIME_ACCESS_TOKEN,
-    refreshTokenValidUntil: TIME_REFRESH_TOKEN,
+    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAY),
   };
 };
 
@@ -36,7 +36,7 @@ export const registerUser = async (payload) => {
   return {
     name: newUser.name,
     email: newUser.email,
-    accessToken: session.accessToken,
+    ...session.toObject(),
   };
 };
 
@@ -52,10 +52,12 @@ export const loginUser = async (email, password) => {
 
   await Session.deleteOne({ userId: user._id });
   const session = createSession();
-  return Session.create({
+  const newSession = await Session.create({
     userId: user._id,
     ...session,
   });
+
+  return { name: user.name, email: user.email, ...newSession.toObject() };
 };
 
 export const logoutUser = async (sessionId) => {

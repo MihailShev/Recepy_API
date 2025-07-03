@@ -11,9 +11,11 @@ export const validationCreateRecipe = Joi.object({
   ingredients: Joi.array()
     .items(
       Joi.object({
-        id: Joi.string().hex().length(24).required(),
+        ingredient: Joi.string().hex().length(24).required(),
         measure: Joi.string().required(),
       }),
     )
+    .min(2)
+    .max(16)
     .required(),
 });

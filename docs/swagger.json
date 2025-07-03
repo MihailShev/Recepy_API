@@ -155,6 +155,16 @@
                           "type": "string",
                           "description": "Token for access",
                           "example": "5H4mA9kN4mMs5teK8gobAU4qblreV+DjjQby3kxz"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "User name",
+                          "example": "Stepan Bandera"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "User email",
+                          "example": "stepan@ukr.da"
                         }
                       }
                     }
@@ -648,7 +658,7 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "id": {
+                        "ingredient": {
                           "type": "string",
                           "example": "640c2dd963a319ea671e37aa"
                         },
@@ -660,11 +670,11 @@
                     },
                     "example": [
                       {
-                        "id": "640c2dd963a319ea671e37aa",
+                        "ingredient": "640c2dd963a319ea671e37aa",
                         "measure": "150g"
                       },
                       {
-                        "id": "640c2dd963a319ea671e367e",
+                        "ingredient": "640c2dd963a319ea671e367e",
                         "measure": "2 tbsp"
                       }
                     ]
@@ -775,7 +785,7 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "Get all favorite recipes",
+        "summary": "Get all favorite recipes (private)",
         "operationId": "getAllFavoriteRecipes",
         "description": "Returns a list of all recipes marked as favorites by the authenticated user.",
         "security": [
@@ -905,7 +915,7 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "Remove a recipe from favorites",
+        "summary": "Remove a recipe from favorites (private)",
         "operationId": "removeFavoriteRecipe",
         "description": "Removes the specified recipe from the user's list of favorites.",
         "security": [
@@ -973,14 +983,10 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "Get a recipe by ID (private)",
+        "summary": "Get a recipe by ID",
         "operationId": "getId",
         "description": "Returns a single recipe created by the user, based on its unique identifier.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [],
         "parameters": [
           {
             "name": "recipeId",
@@ -1210,6 +1216,13 @@
             "format": "date-time",
             "description": "User created",
             "example": "2025-06-06T17:54:59.164+00:00 2025-06-06T17:54:59.164+00:00"
+          },
+          "cals": {
+            "type": "number",
+            "description": "amount of calories",
+            "minimum": 1,
+            "maximum": 10000,
+            "example": 350
           }
         }
       },

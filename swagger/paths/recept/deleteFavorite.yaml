@@ -1,7 +1,7 @@
 tags:
   - Recipes
 
-summary: Remove a recipe from favorites
+summary: Remove a recipe from favorites (private)
 operationId: removeFavoriteRecipe
 description: Removes the specified recipe from the user's list of favorites.
 security:

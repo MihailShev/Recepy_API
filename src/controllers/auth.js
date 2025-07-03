@@ -18,21 +18,23 @@ const setupSession = (res, session) => {
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
-
+  setupSession(res, user);
+  
   res.status(201).json({
-    status: 201,
+    status: 201, 
     message: 'Successfully registered and logged a user!',
-    data: user ,
+    data: {name: user.name, email: user.email, accessToken: user.accessToken} ,
   });
 };
 
 export const loginUserController = async (req, res) => {
-  const session = await loginUser(req.body.email, req.body.password);
-  setupSession(res, session);
+  const user = await loginUser(req.body.email, req.body.password);
+  setupSession(res, user);
+  
   res.status(200).json({
     status: 200,
     message: 'Successfully logged in an user!',
-    data: { accessToken: session.accessToken },
+    data: {name: user.name, email: user.email, accessToken: user.accessToken },
   });
 };
 
