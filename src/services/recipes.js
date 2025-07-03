@@ -34,7 +34,7 @@ export const getAllRecipes = async ({
     recipesQuery
       .skip(skip)
       .limit(limit)
-      .populate('ingredients.id', 'name')
+      .populate('ingredients.ingredient', 'name')
       .exec(),
   ]);
 

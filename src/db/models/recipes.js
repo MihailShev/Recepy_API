@@ -44,9 +44,13 @@ const recipesSchema = new Schema(
       type: String,
       required: true,
     },
+    cals: {
+      type: Number,
+      requied: false,
+    },
     ingredients: [
       {
-        id: {
+        ingredient: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
           ref: 'ingredients',

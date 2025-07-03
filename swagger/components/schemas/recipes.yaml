@@ -66,3 +66,9 @@ properties:
     format: date-time
     description: User created
     example: 2025-06-06T17:54:59.164+00:00 2025-06-06T17:54:59.164+00:00
+  cals:
+    type: number
+    description: amount of calories
+    minimum: 1
+    maximum: 10000
+    example: 350

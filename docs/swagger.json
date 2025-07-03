@@ -653,7 +653,7 @@
                     "items": {
                       "type": "object",
                       "properties": {
-                        "id": {
+                        "ingredient": {
                           "type": "string",
                           "example": "640c2dd963a319ea671e37aa"
                         },
@@ -665,11 +665,11 @@
                     },
                     "example": [
                       {
-                        "id": "640c2dd963a319ea671e37aa",
+                        "ingredient": "640c2dd963a319ea671e37aa",
                         "measure": "150g"
                       },
                       {
-                        "id": "640c2dd963a319ea671e367e",
+                        "ingredient": "640c2dd963a319ea671e367e",
                         "measure": "2 tbsp"
                       }
                     ]
@@ -1212,6 +1212,13 @@
             "format": "date-time",
             "description": "User created",
             "example": "2025-06-06T17:54:59.164+00:00 2025-06-06T17:54:59.164+00:00"
+          },
+          "cals": {
+            "type": "number",
+            "description": "amount of calories",
+            "minimum": 1,
+            "maximum": 10000,
+            "example": 350
           }
         }
       },
