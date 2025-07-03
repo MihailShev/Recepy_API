@@ -52,6 +52,10 @@ responses:
                   type: string
                   description: User name
                   example: Stepan Bandera
+                email:
+                  type: string
+                  description: User email
+                  example: stepan@ukr.da
   '401':
     description: Unauthorized Error
     content:

@@ -139,7 +139,7 @@ export const removeFavoriteReceptController = async (req, res) => {
 export const getAllFavoriteRecipesController = async (req, res) => {
   const userId = req.user.id;
 
- if (userId === null) {
+  if (userId === null) {
     throw createHttpError.NotFound('User not found');
   }
 

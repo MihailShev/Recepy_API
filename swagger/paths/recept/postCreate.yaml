@@ -1,8 +1,8 @@
 tags:
   - Recipes
-summary: Створити новий рецепт (приватний)
+summary: Create a new recipe (private)
 operationId: createRecipe
-description: Дозволяє створити рецепт із фото, описом, інгредієнтами та категорією. Необхідна авторизація.
+description: Allows creating a recipe with a photo, description, ingredients, and category. Authorization is required.
 security:
   - bearerAuth: []
 requestBody:
@@ -57,7 +57,7 @@ requestBody:
             format: binary
 responses:
   '201':
-    description: Рецепт успішно створено
+    description: Recipe successfully created
     content:
       application/json:
         schema:

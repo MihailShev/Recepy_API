@@ -17,48 +17,50 @@ tags:
     description: Recipes operations.
 
 paths:
-  /auth/register:
+  /api/auth/register:
     post:
       $ref: ../swagger/paths/auth/register/post.yaml
-  /auth/login:
+  /api/auth/login:
     post:
       $ref: ../swagger/paths/auth/login/post.yaml
-  /auth/logout:
+  /api/auth/logout:
     post:
       $ref: ../swagger/paths/auth/logout/post.yaml
-  /auth/refresh:
+  /api/auth/refresh:
     post:
       $ref: ../swagger/paths/auth/refresh/post.yaml
-  /ingredients:
+  /api/ingredients:
     get:
       $ref: ../swagger/paths/ingredients/get.yaml
-  /categories/all:
+  /api/categories/all:
     get:
       $ref: ../swagger/paths/categories/all/get.yaml
-  /users:
+  /api/users:
     get:
       $ref: ../swagger/paths/users/get.yaml
     patch:
       $ref: ../swagger/paths/users/patch.yaml
-  /recipes:
+  /api/recipes:
     get:
       $ref: ../swagger/paths/recept/getAll.yaml
     post:
       $ref: ../swagger/paths/recept/postCreate.yaml
 
-  /recipes/own:
+  /api/recipes/own:
     get:
       $ref: ../swagger/paths/recept/getOwn.yaml
 
-  /recipes/favorites/{recipeId}:
+  /api/recipes/favorites:
     get:
       $ref: ../swagger/paths/recept/getAllFavorite.yaml
+
+  /api/recipes/favorites/{recipeId}:
     post:
       $ref: ../swagger/paths/recept/postFavoriteId.yaml
     delete:
       $ref: ../swagger/paths/recept/deleteFavorite.yaml
 
-  /{contactId}:
+  /api/recipes/{recipeId}:
     get:
       $ref: ../swagger/paths/recept/getId.yaml
 

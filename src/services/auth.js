@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import createHttpError from 'http-errors';
 import { User } from '../db/models/users.js';
 import { randomBytes } from 'node:crypto';
-import { THIRTY_DAY, FIFTEEN_MINUTES} from '../constants/index.js';
+import { THIRTY_DAY, FIFTEEN_MINUTES } from '../constants/index.js';
 import { Session } from '../db/models/session.js';
 import { compareDate } from '../utils/isDateArrived.js';
 
@@ -36,7 +36,7 @@ export const registerUser = async (payload) => {
   return {
     name: newUser.name,
     email: newUser.email,
-    accessToken: session.accessToken,
+    ...session.toObject(),
   };
 };
 
@@ -56,8 +56,8 @@ export const loginUser = async (email, password) => {
     userId: user._id,
     ...session,
   });
-  
-  return { name: user.name, ...newSession.toObject()};
+
+  return { name: user.name, email: user.email, ...newSession.toObject() };
 };
 
 export const logoutUser = async (sessionId) => {

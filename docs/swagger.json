@@ -33,7 +33,7 @@
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/api/auth/register": {
       "post": {
         "tags": [
           "Auth"
@@ -90,7 +90,7 @@
         }
       }
     },
-    "/auth/login": {
+    "/api/auth/login": {
       "post": {
         "tags": [
           "Auth"
@@ -160,6 +160,11 @@
                           "type": "string",
                           "description": "User name",
                           "example": "Stepan Bandera"
+                        },
+                        "email": {
+                          "type": "string",
+                          "description": "User email",
+                          "example": "stepan@ukr.da"
                         }
                       }
                     }
@@ -198,7 +203,7 @@
         }
       }
     },
-    "/auth/logout": {
+    "/api/auth/logout": {
       "post": {
         "tags": [
           "Auth"
@@ -220,7 +225,7 @@
         }
       }
     },
-    "/auth/refresh": {
+    "/api/auth/refresh": {
       "post": {
         "tags": [
           "Auth"
@@ -298,7 +303,7 @@
         }
       }
     },
-    "/ingredients": {
+    "/api/ingredients": {
       "get": {
         "tags": [
           "Ingredients"
@@ -339,7 +344,7 @@
         }
       }
     },
-    "/categories/all": {
+    "/api/categories/all": {
       "get": {
         "tags": [
           "Categories"
@@ -389,7 +394,7 @@
         }
       }
     },
-    "/users": {
+    "/api/users": {
       "get": {
         "tags": [
           "Users"
@@ -513,19 +518,19 @@
         }
       }
     },
-    "/recipes": {
+    "/api/recipes": {
       "get": {
         "tags": [
           "Recipes"
         ],
-        "summary": "Отримати всі рецепти",
+        "summary": "Get all the recipes",
         "operationId": "getAllRecipes",
-        "description": "Повертає список рецептів з підтримкою пагінації та фільтрації.",
+        "description": "Returns a list of recipes with support for pagination and filtering.",
         "parameters": [
           {
             "name": "page",
             "in": "query",
-            "description": "Номер сторінки (за замовчуванням 1)",
+            "description": "Page number (default is 1)",
             "required": false,
             "schema": {
               "type": "integer"
@@ -534,7 +539,7 @@
           {
             "name": "perPage",
             "in": "query",
-            "description": "Кількість рецептів на сторінку (за замовчуванням 12)",
+            "description": "Number of recipes per page (default is 12)",
             "required": false,
             "schema": {
               "type": "integer"
@@ -543,7 +548,7 @@
           {
             "name": "category",
             "in": "query",
-            "description": "Категорія рецепту",
+            "description": "Recipe category",
             "required": false,
             "schema": {
               "type": "string"
@@ -552,7 +557,7 @@
           {
             "name": "ingredient",
             "in": "query",
-            "description": "ID інгредієнта",
+            "description": "Ingredient ID",
             "required": false,
             "schema": {
               "type": "string"
@@ -561,7 +566,7 @@
           {
             "name": "title",
             "in": "query",
-            "description": "Частковий пошук за назвою",
+            "description": "Partial search by title",
             "required": false,
             "schema": {
               "type": "string"
@@ -571,7 +576,7 @@
         "security": [],
         "responses": {
           "200": {
-            "description": "Успішне отримання списку",
+            "description": "Successfully retrieved the list",
             "content": {
               "application/json": {
                 "schema": {
@@ -605,9 +610,9 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "Створити новий рецепт (приватний)",
+        "summary": "Create a new recipe (private)",
         "operationId": "createRecipe",
-        "description": "Дозволяє створити рецепт із фото, описом, інгредієнтами та категорією. Необхідна авторизація.",
+        "description": "Allows creating a recipe with a photo, description, ingredients, and category. Authorization is required.",
         "security": [
           {
             "bearerAuth": []
@@ -689,7 +694,7 @@
         },
         "responses": {
           "201": {
-            "description": "Рецепт успішно створено",
+            "description": "Recipe successfully created",
             "content": {
               "application/json": {
                 "schema": {
@@ -726,14 +731,14 @@
         }
       }
     },
-    "/recipes/own": {
+    "/api/recipes/own": {
       "get": {
         "tags": [
           "Recipes"
         ],
-        "summary": "Отримати власні рецепти (приватний)",
+        "summary": "Get own recipes (private)",
         "operationId": "getOwn",
-        "description": "Повертає список рецептів, створених авторизованим користувачем.",
+        "description": "Returns a list of recipes created by the authenticated user.",
         "security": [
           {
             "bearerAuth": []
@@ -741,7 +746,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Успішне отримання власних рецептів",
+            "description": "Successfully retrieved own recipes",
             "content": {
               "application/json": {
                 "schema": {
@@ -775,33 +780,22 @@
         }
       }
     },
-    "/recipes/favorites/{recipeId}": {
+    "/api/recipes/favorites": {
       "get": {
         "tags": [
           "Recipes"
         ],
-        "summary": "Видалити рецепт зі списку улюблених (приватний)",
-        "operationId": "deleteFavoriteRecipe",
-        "description": "Видаляє вказаний рецепт із списку улюблених користувача.",
+        "summary": "Get all favorite recipes (private)",
+        "operationId": "getAllFavoriteRecipes",
+        "description": "Returns a list of all recipes marked as favorites by the authenticated user.",
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "parameters": [
-          {
-            "name": "recipeId",
-            "in": "path",
-            "required": true,
-            "description": "ID рецепту, який потрібно видалити з улюблених",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
-            "description": "Рецепт успішно видалено з улюблених",
+            "description": "Successfully fetched favorite recipes",
             "content": {
               "application/json": {
                 "schema": {
@@ -813,14 +807,12 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Recipe removed from favorites"
+                      "example": "Successfully fetched favorite recipes"
                     },
                     "data": {
-                      "type": "object",
-                      "properties": {
-                        "recipeId": {
-                          "type": "string"
-                        }
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/recipes"
                       }
                     }
                   }
@@ -832,23 +824,39 @@
             "$ref": "#/components/responses/401"
           },
           "404": {
-            "$ref": "#/components/responses/404"
-          },
-          "409": {
-            "$ref": "#/components/responses/409"
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
           },
           "500": {
             "$ref": "#/components/responses/500"
           }
         }
-      },
+      }
+    },
+    "/api/recipes/favorites/{recipeId}": {
       "post": {
         "tags": [
           "Recipes"
         ],
-        "summary": "Додати рецепт до списку улюблених (приватний)",
+        "summary": "Add a recipe to favorites (private)",
         "operationId": "postFavoriteId",
-        "description": "Додає вказаний рецепт до списку улюблених авторизованого користувача.",
+        "description": "Adds the specified recipe to the authenticated user's list of favorites.",
         "security": [
           {
             "bearerAuth": []
@@ -859,7 +867,7 @@
             "name": "recipeId",
             "in": "path",
             "required": true,
-            "description": "ID рецепту, який додається до улюблених",
+            "description": "ID of the recipe to be added to favorites",
             "schema": {
               "type": "string"
             }
@@ -867,7 +875,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Рецепт успішно додано до улюблених",
+            "description": "Recipe successfully added to favorites",
             "content": {
               "application/json": {
                 "schema": {
@@ -907,9 +915,9 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "Видалити рецепт зі списку улюблених (приватний)",
+        "summary": "Remove a recipe from favorites (private)",
         "operationId": "removeFavoriteRecipe",
-        "description": "Видаляє вказаний рецепт із списку улюблених користувача.",
+        "description": "Removes the specified recipe from the user's list of favorites.",
         "security": [
           {
             "bearerAuth": []
@@ -920,7 +928,7 @@
             "name": "recipeId",
             "in": "path",
             "required": true,
-            "description": "ID рецепту, який потрібно видалити з улюблених",
+            "description": "ID of the recipe to be removed from favorites",
             "schema": {
               "type": "string"
             }
@@ -928,7 +936,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Рецепт успішно видалено з улюблених",
+            "description": "Recipe successfully removed from favorites",
             "content": {
               "application/json": {
                 "schema": {
@@ -970,25 +978,21 @@
         }
       }
     },
-    "/{contactId}": {
+    "/api/recipes/{recipeId}": {
       "get": {
         "tags": [
           "Recipes"
         ],
-        "summary": "Отримати рецепт за ID (приватний)",
+        "summary": "Get a recipe by ID",
         "operationId": "getId",
-        "description": "Повертає один рецепт, створений користувачем, за його унікальним ідентифікатором.",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "description": "Returns a single recipe created by the user, based on its unique identifier.",
+        "security": [],
         "parameters": [
           {
-            "name": "contactId",
+            "name": "recipeId",
             "in": "path",
             "required": true,
-            "description": "Унікальний ідентифікатор рецепта",
+            "description": "Unique identifier of the recipe",
             "schema": {
               "type": "string",
               "example": "665123abc321cc0011aa23ef"
@@ -997,7 +1001,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Успішне отримання рецепта",
+            "description": "Successfully retrieved the recipe",
             "content": {
               "application/json": {
                 "schema": {
