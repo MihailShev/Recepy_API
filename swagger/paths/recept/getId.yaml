@@ -1,21 +1,21 @@
 tags:
   - Recipes
-summary: Отримати рецепт за ID (приватний)
+summary: Get a recipe by ID (private)
 operationId: getId
-description: Повертає один рецепт, створений користувачем, за його унікальним ідентифікатором.
+description: Returns a single recipe created by the user, based on its unique identifier.
 security:
   - bearerAuth: []
 parameters:
-  - name: contactId
+  - name: recipeId
     in: path
     required: true
-    description: Унікальний ідентифікатор рецепта
+    description: Unique identifier of the recipe
     schema:
       type: string
       example: 665123abc321cc0011aa23ef
 responses:
   '200':
-    description: Успішне отримання рецепта
+    description: Successfully retrieved the recipe
     content:
       application/json:
         schema:

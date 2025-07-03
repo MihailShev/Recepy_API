@@ -1,43 +1,43 @@
 tags:
   - Recipes
-summary: Отримати всі рецепти
+summary: Get all the recipes
 operationId: getAllRecipes
-description: Повертає список рецептів з підтримкою пагінації та фільтрації.
+description: Returns a list of recipes with support for pagination and filtering.
 parameters:
   - name: page
     in: query
-    description: Номер сторінки (за замовчуванням 1)
+    description: Page number (default is 1)
     required: false
     schema:
       type: integer
   - name: perPage
     in: query
-    description: Кількість рецептів на сторінку (за замовчуванням 12)
+    description: Number of recipes per page (default is 12)
     required: false
     schema:
       type: integer
   - name: category
     in: query
-    description: Категорія рецепту
+    description: Recipe category
     required: false
     schema:
       type: string
   - name: ingredient
     in: query
-    description: ID інгредієнта
+    description: Ingredient ID
     required: false
     schema:
       type: string
   - name: title
     in: query
-    description: Частковий пошук за назвою
+    description: Partial search by title
     required: false
     schema:
       type: string
-security: [] # або [bearerAuth], якщо ендпоінт приватний
+security: []
 responses:
   '200':
-    description: Успішне отримання списку
+    description: Successfully retrieved the list
     content:
       application/json:
         schema:

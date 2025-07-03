@@ -1,21 +1,13 @@
 tags:
   - Recipes
-
-summary: Видалити рецепт зі списку улюблених (приватний)
-operationId: deleteFavoriteRecipe
-description: Видаляє вказаний рецепт із списку улюблених користувача.
+summary: Get all favorite recipes
+operationId: getAllFavoriteRecipes
+description: Returns a list of all recipes marked as favorites by the authenticated user.
 security:
   - bearerAuth: []
-parameters:
-  - name: recipeId
-    in: path
-    required: true
-    description: ID рецепту, який потрібно видалити з улюблених
-    schema:
-      type: string
 responses:
   '200':
-    description: Рецепт успішно видалено з улюблених
+    description: Successfully fetched favorite recipes
     content:
       application/json:
         schema:
@@ -26,17 +18,25 @@ responses:
               example: 200
             message:
               type: string
-              example: Recipe removed from favorites
+              example: Successfully fetched favorite recipes
             data:
-              type: object
-              properties:
-                recipeId:
-                  type: string
+              type: array
+              items:
+                $ref: ../../components/schemas/recipes.yaml
   '401':
     $ref: ../../components/responses/401.yaml
   '404':
-    $ref: ../../components/responses/404.yaml
-  '409':
-    $ref: ../../components/responses/409.yaml
+    description: User not found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: User not found
   '500':
     $ref: ../../components/responses/500.yaml

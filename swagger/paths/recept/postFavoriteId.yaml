@@ -1,20 +1,20 @@
 tags:
   - Recipes
-summary: Додати рецепт до списку улюблених (приватний)
+summary: Add a recipe to favorites (private)
 operationId: postFavoriteId
-description: Додає вказаний рецепт до списку улюблених авторизованого користувача.
+description: Adds the specified recipe to the authenticated user's list of favorites.
 security:
   - bearerAuth: []
 parameters:
   - name: recipeId
     in: path
     required: true
-    description: ID рецепту, який додається до улюблених
+    description: ID of the recipe to be added to favorites
     schema:
       type: string
 responses:
   '200':
-    description: Рецепт успішно додано до улюблених
+    description: Recipe successfully added to favorites
     content:
       application/json:
         schema:

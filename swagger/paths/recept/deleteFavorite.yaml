@@ -1,21 +1,21 @@
 tags:
   - Recipes
 
-summary: Видалити рецепт зі списку улюблених (приватний)
+summary: Remove a recipe from favorites
 operationId: removeFavoriteRecipe
-description: Видаляє вказаний рецепт із списку улюблених користувача.
+description: Removes the specified recipe from the user's list of favorites.
 security:
   - bearerAuth: []
 parameters:
   - name: recipeId
     in: path
     required: true
-    description: ID рецепту, який потрібно видалити з улюблених
+    description: ID of the recipe to be removed from favorites
     schema:
       type: string
 responses:
   '200':
-    description: Рецепт успішно видалено з улюблених
+    description: Recipe successfully removed from favorites
     content:
       application/json:
         schema:
