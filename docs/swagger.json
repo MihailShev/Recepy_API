@@ -775,7 +775,7 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "Get all favorite recipes (private)",
+        "summary": "Get all favorite recipes",
         "operationId": "getAllFavoriteRecipes",
         "description": "Returns a list of all recipes marked as favorites by the authenticated user.",
         "security": [
@@ -905,7 +905,7 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "Remove a recipe from favorites (private)",
+        "summary": "Remove a recipe from favorites",
         "operationId": "removeFavoriteRecipe",
         "description": "Removes the specified recipe from the user's list of favorites.",
         "security": [

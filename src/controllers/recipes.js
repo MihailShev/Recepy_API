@@ -34,7 +34,6 @@ export const getAllRecipesController = async (req, res, next) => {
 
 export const getRecipestByIdController = async (req, res, next) => {
   const { receptId } = req.params;
-  console.log(receptId);
 
   const recipes = await getRecipestById(receptId);
 

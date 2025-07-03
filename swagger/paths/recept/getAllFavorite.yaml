@@ -1,6 +1,6 @@
 tags:
   - Recipes
-summary: Get all favorite recipes (private)
+summary: Get all favorite recipes
 operationId: getAllFavoriteRecipes
 description: Returns a list of all recipes marked as favorites by the authenticated user.
 security:
