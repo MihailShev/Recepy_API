@@ -51,6 +51,6 @@ router.delete(
   ctrlWrapper(removeFavoriteReceptController),
 );
 
-router.get('/:receptId', isValidID, ctrlWrapper(getRecipestByIdController));
+router.get('/:recipeId', isValidID, ctrlWrapper(getRecipestByIdController));
 
 export default router;
