@@ -1,0 +1,12 @@
+type: object
+properties:
+  _id:
+    type: string
+    example: 640c2dd963a319ea671e37aa
+  ingredient:
+    type: string
+    description: ID ingredient in Ingredients
+    example: 640c2dd963a319ea671e388a
+  'measure':
+    type: string
+    example: ½ tsp

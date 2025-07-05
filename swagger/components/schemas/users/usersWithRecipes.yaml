@@ -35,8 +35,8 @@ properties:
   favorites:
     type: array
     items:
-      $ref: '../recipes.yaml'
+      $ref: ../recipes/recipes.yaml
   ownRecipes:
     type: array
     items:
-      $ref: '../recipes.yaml'
+      $ref: ../recipes/recipes.yaml

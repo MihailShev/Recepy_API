@@ -1,0 +1,40 @@
+type: object
+required:
+  - data
+  - page
+  - perPage
+  - totalItems
+  - totalPages
+  - hasPreviousPage
+  - hasNextPage
+properties:
+  data:
+    type: array
+    items:
+      $ref: '../recipes/recipes.yaml'
+    description: Array of contacts
+  page:
+    type: integer
+    description: Number of page
+    example: 2
+  perPage:
+    type: integer
+    description: Count of contacts on one page
+    default: 12
+    example: 12
+  totalItems:
+    type: integer
+    description: Count of contacts with given parameters in DB
+    example: 24
+  totalPages:
+    type: integer
+    description: Count of page with contacts with given parameters
+    example: 2
+  hasPreviousPage:
+    type: boolean
+    description: Have this page the previous page?
+    example: true
+  hasNextPage:
+    type: boolean
+    description: Have this page the next page?
+    example: false

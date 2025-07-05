@@ -22,7 +22,7 @@ responses:
             data:
               type: array
               items:
-                $ref: ../../components/schemas/recipes.yaml
+                $ref: ../../components/schemas/recipes/recipes.yaml
   '401':
     $ref: ../../components/responses/401.yaml
   '404':
