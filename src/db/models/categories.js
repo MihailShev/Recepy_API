@@ -4,7 +4,7 @@ const categoriesSchema = new Schema(
   {
     name: { type: String, required: true },
   },
-  { timestamps: false, versionKey: false },
+  { timestamps: true, versionKey: false },
 );
 
 export const Categories = model('categories', categoriesSchema);

@@ -22,7 +22,7 @@ export const getAllRecipes = async ({
   }
 
   if (ingredient) {
-    recipesQuery.where('ingredients.id').equals(ingredient);
+    recipesQuery.where('ingredients.ingredient').equals(ingredient);
   }
 
   if (title) {
@@ -34,7 +34,6 @@ export const getAllRecipes = async ({
     recipesQuery
       .skip(skip)
       .limit(limit)
-      .populate('ingredients.ingredient', 'name')
       .exec(),
   ]);
 
