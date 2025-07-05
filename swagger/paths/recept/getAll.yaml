@@ -50,7 +50,7 @@ responses:
               type: string
               example: Successfully found all recipes!
             data:
-              $ref: ../../components/schemas/recipes.yaml
+              $ref: ../../components/schemas/recipes/recipesWithParametrs.yaml
   '401':
     $ref: ../../components/responses/401.yaml
   '500':

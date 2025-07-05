@@ -49,9 +49,6 @@ requestBody:
                 measure: '150g'
               - ingredient: '640c2dd963a319ea671e367e'
                 measure: '2 tbsp'
-          ingredientAmount:
-            type: integer
-            example: 2
           thumb:
             type: string
             format: binary
@@ -70,7 +67,7 @@ responses:
               type: string
               example: Successfully created a recipe!
             data:
-              $ref: ../../components/schemas/recipes.yaml
+              $ref: ../../components/schemas/recipes/recipes.yaml
   '400':
     $ref: ../../components/responses/400.yaml
   '401':

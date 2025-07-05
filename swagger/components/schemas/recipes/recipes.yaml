@@ -10,13 +10,14 @@ required:
   - thumb
   - time
   - ingredients
-  - timestamps
+  - createdAt
+  - updatedAt
 properties:
   _id:
     type: string
     description: Recept id
     example: 6841738d9abba11274e4c270
-  name:
+  title:
     type: string
     description: Recept title
     example: Battenberg Cake
@@ -60,12 +61,19 @@ properties:
     description: Recipe preparation time
     example: 60
   ingredients:
-    $ref: ./ingredients.yaml
-  timestamps:
-    type: object
+    type: array
+    items:
+      $ref: ../ingredients/ingredientsWithAmount.yaml
+  createdAt:
+    type: string
     format: date-time
-    description: User created
-    example: 2025-06-06T17:54:59.164+00:00 2025-06-06T17:54:59.164+00:00
+    description: Recipe created at
+    example: 2025-06-27T08:41:53.166Z
+  updatedAt:
+    type: string
+    format: date-time
+    description: Recipe updated at
+    example: 2025-06-27T08:41:53.166Z
   cals:
     type: number
     description: amount of calories

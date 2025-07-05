@@ -27,7 +27,7 @@ responses:
               type: string
               example: Successfully found your recipe with 665123abc321cc0011aa23ef!
             data:
-              $ref: ../../components/schemas/recipes.yaml
+              $ref: ../../components/schemas/recipes/recipes.yaml
   '404':
     $ref: ../../components/responses/404.yaml
   '401':

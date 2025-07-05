@@ -2,6 +2,8 @@ type: object
 required:
   - '_id'
   - name
+  - createdAt
+  - updatedAt
 properties:
   _id:
     type: string
@@ -11,3 +13,13 @@ properties:
     type: string
     description: Name categories
     example: Lamb
+  createdAt:
+    type: string
+    format: date-time
+    description: Category created at
+    example: 2025-06-27T08:41:53.166Z
+  updatedAt:
+    type: string
+    format: date-time
+    description: Category updated at
+    example: 2025-07-05T07:11:13.225Z

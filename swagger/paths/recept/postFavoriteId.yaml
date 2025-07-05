@@ -27,7 +27,7 @@ responses:
               type: string
               example: Recipe added to favorites
             data:
-              $ref: ../../components/schemas/recipes.yaml
+              $ref: ../../components/schemas/recipes/recipes.yaml
   '401':
     $ref: ../../components/responses/401.yaml
   '404':

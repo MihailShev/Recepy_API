@@ -46,6 +46,7 @@ export const getAllRecipes = async ({
 
 export const getRecipestById = async (recipeId) => {
   const recipe = await Recipes.findOne({ _id: recipeId });
+
   return recipe;
 };
 
