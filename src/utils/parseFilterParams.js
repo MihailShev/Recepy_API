@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
 
 const parseCategoryType = (type) => {
@@ -7,18 +8,28 @@ const parseCategoryType = (type) => {
 
   const isReciptType = (type) =>
     [
-      'Dessert',
-      'Beef',
-      'Lamb',
-      'Chicken',
       'Seafood',
-      'Miscellaneous',
+      'Lamb',
+      'Starter',
+      'Chicken',
+      'Beef',
       'Dessert',
-      'Breakfast',
+      'Vegan',
       'Pork',
+      'Vegetarian',
+      'Miscellaneous',
+      'Pasta',
+      'Breakfast',
+      'Side',
+      'Goat',
+      'Soup',
     ].includes(type);
 
-  if (isReciptType(type)) return type;
+  if (isReciptType(type)) {
+    return type;
+  } else {
+    throw new createHttpError.BadRequest(`Unknown category type: ${type}`);
+  }
 };
 
 const isValidObjectId = (id) => {

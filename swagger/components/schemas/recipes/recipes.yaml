@@ -26,14 +26,21 @@ properties:
     description: Type Recept
     enum:
       [
-        'Dessert',
-        'Beef',
-        'Lamb',
-        'Chicken',
         'Seafood',
-        'Miscellaneous',
-        'Breakfast',
+        'Lamb',
+        'Starter',
+        'Chicken',
+        'Beef',
+        'Dessert',
+        'Vegan',
         'Pork',
+        'Vegetarian',
+        'Miscellaneous',
+        'Pasta',
+        'Breakfast',
+        'Side',
+        'Goat',
+        'Soup',
       ]
     example: Pork
   owner:
