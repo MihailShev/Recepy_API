@@ -21,6 +21,10 @@ export const getAllRecipesController = async (req, res, next) => {
   const { page, perPage } = parsePaginationParems(req.query);
   const filter = parseFilterParams(req.query);
 
+  if (!filter) {
+    throw createHttpError.BadRequest('Unknown category type');
+  }
+
   const recipes = await getAllRecipes({ page, perPage, filter });
 
   res.status(200).json({
@@ -89,9 +93,11 @@ export const createReceptController = async (req, res, next) => {
 // створити приватний ендпоінт для отримання власних рецептів
 
 export const getOwnRecipesController = async (req, res) => {
+  const { page, perPage } = parsePaginationParems(req.query);
+
   const ownerId = req.user.id;
 
-  const myRecept = await getOwnRecipes({ owner: ownerId });
+  const myRecept = await getOwnRecipes({ page, perPage, owner: ownerId });
 
   res.status(200).json({
     status: 200,
@@ -137,13 +143,18 @@ export const removeFavoriteReceptController = async (req, res) => {
 // створити приватний ендпоінт для отримання улюблених рецептів
 
 export const getAllFavoriteRecipesController = async (req, res) => {
+  const { page, perPage } = parsePaginationParems(req.query);
   const userId = req.user.id;
 
   if (userId === null) {
     throw createHttpError.NotFound('User not found');
   }
 
-  const favoriteRecipes = await getAllFavoriteRecipes(userId);
+  const favoriteRecipes = await getAllFavoriteRecipes({
+    page,
+    perPage,
+    userId,
+  });
 
   res.status(200).json({
     status: 200,

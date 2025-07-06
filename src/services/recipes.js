@@ -31,10 +31,7 @@ export const getAllRecipes = async ({
 
   const [recipesCount, recipes] = await Promise.all([
     Recipes.find().merge(recipesQuery).clone().countDocuments(),
-    recipesQuery
-      .skip(skip)
-      .limit(limit)
-      .exec(),
+    recipesQuery.skip(skip).limit(limit).exec(),
   ]);
 
   const paginationData = calculatePaginationData(recipesCount, perPage, page);
@@ -64,9 +61,23 @@ export const createRecept = async (payload) => {
 
 // створити приватний ендпоінт для отримання власних рецептів
 
-export const getOwnRecipes = async (owner) => {
-  const myRecept = await Recipes.find(owner);
-  return myRecept;
+export const getOwnRecipes = async ({ page = 1, perPage = 12, owner }) => {
+  const limit = perPage;
+  const skip = (page - 1) * perPage;
+
+  let recipesQuery = Recipes.find({ owner });
+
+  const [recipesCount, recipes] = await Promise.all([
+    Recipes.find().clone().countDocuments(),
+    recipesQuery.skip(skip).limit(limit).exec(),
+  ]);
+
+  const paginationData = calculatePaginationData(recipesCount, perPage, page);
+
+  return { data: recipes, ...paginationData };
+
+  // const myRecept = await Recipes.find(owner, page, perPage);
+  // return myRecept;
 };
 
 // створити приватний ендпоінт для додавання рецепту до списку улюблених
@@ -109,10 +120,26 @@ export const removeFavoriteRecept = async (userId, recipeId) => {
 
 // створити приватний ендпоінт для отримання улюблених рецептів
 
-export const getAllFavoriteRecipes = async (userId) => {
+export const getAllFavoriteRecipes = async ({
+  page = 1,
+  perPage = 12,
+  userId,
+}) => {
+  const limit = perPage;
+  const skip = (page - 1) * perPage;
+
   const user = await User.findById(userId).populate({
     path: 'favorites',
+    options: {
+      skip,
+      limit,
+    },
   });
 
-  return user.favorites;
+  const totalFavorits = await User.findById(userId).populate('favorites');
+  const totalCount = totalFavorits.favorites.length;
+
+  const totalPages = calculatePaginationData(totalCount, perPage, page);
+
+  return { data: user.favorites, page, perPage, totalPages, totalCount };
 };

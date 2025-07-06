@@ -734,10 +734,33 @@
         ],
         "summary": "Get own recipes (private)",
         "operationId": "getOwn",
-        "description": "Returns a list of recipes created by the authenticated user.",
+        "description": "Returns a paginated list of recipes created by the authenticated user.",
         "security": [
           {
             "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "example": 1
+            },
+            "description": "Page number for pagination"
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "example": 12
+            },
+            "description": "Number of recipes per page"
           }
         ],
         "responses": {
@@ -757,9 +780,30 @@
                       "example": "Successfully found your recipes!"
                     },
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/recipes"
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/recipes"
+                          }
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 12
+                        },
+                        "totalCount": {
+                          "type": "integer",
+                          "example": 25
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 3
+                        }
                       }
                     }
                   }
@@ -783,10 +827,33 @@
         ],
         "summary": "Get all favorite recipes (private)",
         "operationId": "getAllFavoriteRecipes",
-        "description": "Returns a list of all recipes marked as favorites by the authenticated user.",
+        "description": "Returns a paginated list of all recipes marked as favorites by the authenticated user.",
         "security": [
           {
             "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "example": 1
+            },
+            "description": "Page number for pagination"
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "example": 12
+            },
+            "description": "Number of recipes per page"
           }
         ],
         "responses": {
@@ -806,9 +873,30 @@
                       "example": "Successfully fetched favorite recipes"
                     },
                     "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/recipes"
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/recipes"
+                          }
+                        },
+                        "page": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "integer",
+                          "example": 12
+                        },
+                        "totalCount": {
+                          "type": "integer",
+                          "example": 42
+                        },
+                        "totalPages": {
+                          "type": "integer",
+                          "example": 4
+                        }
                       }
                     }
                   }
@@ -1272,14 +1360,21 @@
             "type": "string",
             "description": "Type Recept",
             "enum": [
-              "Dessert",
-              "Beef",
-              "Lamb",
-              "Chicken",
               "Seafood",
+              "Lamb",
+              "Starter",
+              "Chicken",
+              "Beef",
+              "Dessert",
+              "Vegan",
+              "Pork",
+              "Vegetarian",
               "Miscellaneous",
+              "Pasta",
               "Breakfast",
-              "Pork"
+              "Side",
+              "Goat",
+              "Soup"
             ],
             "example": "Pork"
           },
