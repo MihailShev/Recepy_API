@@ -12,6 +12,7 @@ parameters:
     description: ID of the recipe to be added to favorites
     schema:
       type: string
+      pattern: '^[a-fA-F0-9]{24}$'
 responses:
   '200':
     description: Recipe successfully added to favorites

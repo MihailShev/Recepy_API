@@ -4,7 +4,6 @@ import { validateBody } from '../middlewares/validateBody.js';
 import { isValidID } from '../middlewares/isValidID.js';
 import { upload } from '../middlewares/upload.js';
 import { authenticate } from '../middlewares/authenticate.js';
-import { parseIngredients } from '../middlewares/parseIngredient.js';
 import {
   createReceptController,
   getAllFavoriteRecipesController,
@@ -31,7 +30,6 @@ router.get(
 router.post(
   '/',
   authenticate,
-  parseIngredients,
   upload.single('thumb'),
   validateBody(validationCreateRecipe),
   ctrlWrapper(createReceptController),

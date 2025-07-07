@@ -137,21 +137,23 @@ export const getAllFavoriteRecipes = async ({
   perPage = 12,
   userId,
 }) => {
-  const limit = perPage;
+  const user = await User.findById(userId).lean();
+
+  if (!user || !user.favorites || user.favorites.length === 0) {
+    return {
+      data: [],
+      ...calculatePaginationData(0, perPage, page),
+    };
+  }
+
+  const totalCount = user.favorites.length;
   const skip = (page - 1) * perPage;
+  const idsToFetch = user.favorites.slice(skip, skip + perPage);
 
-  const user = await User.findById(userId).populate({
-    path: 'favorites',
-    options: {
-      skip,
-      limit,
-    },
-  });
+  const favoriteRecipes = await Recipes.find({ _id: { $in: idsToFetch } });
 
-  const totalFavorits = await User.findById(userId).populate('favorites');
-  const totalCount = totalFavorits.favorites.length;
-
-  const totalPages = calculatePaginationData(totalCount, perPage, page);
-
-  return { data: user.favorites, page, perPage, totalPages, totalCount };
+  return {
+    data: favoriteRecipes,
+    ...calculatePaginationData(totalCount, perPage, page),
+  };
 };

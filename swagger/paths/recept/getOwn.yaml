@@ -11,7 +11,7 @@ parameters:
     schema:
       type: integer
       minimum: 1
-      example: 1
+      default: 1
     description: Page number for pagination
   - in: query
     name: perPage
@@ -19,7 +19,7 @@ parameters:
       type: integer
       minimum: 1
       maximum: 100
-      example: 12
+      default: 12
     description: Number of recipes per page
 responses:
   '200':
