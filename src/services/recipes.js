@@ -80,16 +80,13 @@ export const getOwnRecipes = async ({ page = 1, perPage = 12, owner }) => {
   let recipesQuery = Recipes.find({ owner });
 
   const [recipesCount, recipes] = await Promise.all([
-    Recipes.find().clone().countDocuments(),
+    Recipes.find().clone().countDocuments({ owner }),
     recipesQuery.skip(skip).limit(limit).exec(),
   ]);
 
   const paginationData = calculatePaginationData(recipesCount, perPage, page);
 
   return { data: recipes, ...paginationData };
-
-  // const myRecept = await Recipes.find(owner, page, perPage);
-  // return myRecept;
 };
 
 // створити приватний ендпоінт для додавання рецепту до списку улюблених
