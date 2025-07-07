@@ -57,7 +57,10 @@ export const loginUser = async (email, password) => {
     ...session,
   });
 
-  return { ...user, ...newSession.toObject() };
+  return {
+    ...user,
+    ...newSession.toObject(),
+  };
 };
 
 export const logoutUser = async (sessionId) => {

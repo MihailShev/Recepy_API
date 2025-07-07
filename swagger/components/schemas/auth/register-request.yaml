@@ -6,13 +6,19 @@ required:
 properties:
   name:
     type: string
-    description: User's name
+    minLength: 3
+    maxLength: 16
+    description: Users name
     example: Stepan Bandera
   email:
     type: string
-    description: User's email
+    maxLength: 128
+    pattern: /.+@.+\..+/
+    description: Users email
     example: stepan@ukr.da
   password:
     type: string
+    maxLength: 128
+    minLength: 8
     description: User's password
     example: step123an
