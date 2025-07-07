@@ -57,10 +57,10 @@ const recipesSchema = new Schema(
     },
     ingredients: [
       {
-        ingredient: {
+        id: {
           type: mongoose.Schema.Types.ObjectId,
           required: true,
-          ref: 'ingredients',
+          ref: 'ingredient',
         },
         measure: {
           type: String,

@@ -57,7 +57,10 @@ export const loginUser = async (email, password) => {
     ...session,
   });
 
-  return { name: user.name, email: user.email, ...newSession.toObject() };
+  return {
+    ...user,
+    ...newSession.toObject(),
+  };
 };
 
 export const logoutUser = async (sessionId) => {

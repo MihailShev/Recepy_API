@@ -3,6 +3,8 @@ required:
   - _id
   - name
   - email
+  - favorites
+  - ownRecipes
   - createdAt
   - updatedAt
 properties:
@@ -15,13 +17,13 @@ properties:
     minLength: 3
     maxLength: 16
     description: Users name
-    example: Steve
+    example: Stepan Bandera
   email:
     type: string
     maxLength: 128
     pattern: /.+@.+\..+/
     description: Users email
-    example: steve@main.kraft
+    example: stepan@ukr.da
   createdAt:
     type: string
     format: date-time

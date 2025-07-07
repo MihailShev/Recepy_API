@@ -16,9 +16,13 @@ requestBody:
           email:
             type: string
             description: user`s email
+            format: email
+            maxLength: 128
             example: stepan@ukr.da
           password:
             type: string
+            minLength: 8
+            maxLength: 128
             description: User`s password
             example: 12345678
 responses:
@@ -40,22 +44,14 @@ responses:
               type: string
               example: Successfully logged in an user!
             data:
-              type: object
-              required:
-                - accessToken
-              properties:
-                accessToken:
-                  type: string
-                  description: Token for access
-                  example: 5H4mA9kN4mMs5teK8gobAU4qblreV+DjjQby3kxz
-                name:
-                  type: string
-                  description: User name
-                  example: Stepan Bandera
-                email:
-                  type: string
-                  description: User email
-                  example: stepan@ukr.da
+              allOf:
+                - $ref: ../../../components/schemas/users/users.yaml
+                - type: object
+                  properties:
+                    accessToken:
+                      type: string
+                      description: JWT access token
+                      example: r81biLR1/8pFGiMx8cl5Q+dYm7n+m1uqhOF0rr4r
   '401':
     description: Unauthorized Error
     content:
