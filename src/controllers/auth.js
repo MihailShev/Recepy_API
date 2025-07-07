@@ -30,11 +30,10 @@ export const registerUserController = async (req, res) => {
 export const loginUserController = async (req, res) => {
   const user = await loginUser(req.body.email, req.body.password);
   setupSession(res, user);
-  
   res.status(200).json({
     status: 200,
     message: 'Successfully logged in an user!',
-    data: {name: user.name, email: user.email, accessToken: user.accessToken },
+    data: {name: user._doc.name, email: user._doc.email, favorites: user._doc.favorites, ownRecipes: user._doc.ownRecipes, accessToken: user.accessToken },
   });
 };
 
