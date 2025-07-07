@@ -11,35 +11,56 @@ requestBody:
     multipart/form-data:
       schema:
         type: object
+        required:
+          - title
+          - category
+          - instructions
+          - description
+          - time
+          - ingredients
         properties:
           title:
             type: string
+            maxLength: 64
             example: Grilled Chicken with Lemon
           category:
             type: string
             example: Chicken
           area:
             type: string
+            maxLength: 20
             example: American
           instructions:
             type: string
+            maxLength: 1200
             example: Season chicken, grill for 10 minutes per side.
           description:
             type: string
+            maxLength: 200
             example: A delicious grilled chicken dish with lemon and herbs.
           time:
             type: integer
+            minimum: 1
+            maximum: 360
             example: 45
           cals:
             type: integer
+            minimum: 1
+            maximum: 10000
             example: 500
           ingredients:
             type: array
+            minItems: 2
+            maxItems: 16
             items:
               type: object
+              required:
+                - ingredient
+                - measure
               properties:
                 ingredient:
                   type: string
+                  pattern: "^[a-fA-F0-9]{24}$"
                   example: 640c2dd963a319ea671e37aa
                 measure:
                   type: string

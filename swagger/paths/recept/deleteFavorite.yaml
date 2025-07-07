@@ -10,9 +10,11 @@ parameters:
   - name: recipeId
     in: path
     required: true
-    description: ID of the recipe to be removed from favorites
+    description: ID of the recipe to be removed from favorites (24-character hex string)
     schema:
       type: string
+      pattern: '^[a-fA-F0-9]{24}$'
+      example: 665123abc321cc0011aa23ef
 responses:
   '200':
     description: Recipe successfully removed from favorites
@@ -32,6 +34,7 @@ responses:
               properties:
                 recipeId:
                   type: string
+                  example: 665123abc321cc0011aa23ef
   '401':
     $ref: ../../components/responses/401.yaml
   '404':

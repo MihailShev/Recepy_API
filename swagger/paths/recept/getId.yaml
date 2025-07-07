@@ -11,6 +11,7 @@ parameters:
     description: Unique identifier of the recipe
     schema:
       type: string
+      pattern: '^[a-fA-F0-9]{24}$'
       example: 665123abc321cc0011aa23ef
 responses:
   '200':
