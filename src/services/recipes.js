@@ -22,7 +22,7 @@ export const getAllRecipes = async ({
   }
 
   if (ingredient) {
-    recipesQuery.where('ingredients.ingredient').equals(ingredient);
+    recipesQuery.where('ingredients.id').equals(ingredient);
   }
 
   if (title) {
@@ -42,7 +42,19 @@ export const getAllRecipes = async ({
 // створити публічний ендпоінт для отримання детальної інформації про рецепт за його id
 
 export const getRecipestById = async (recipeId) => {
-  const recipe = await Recipes.findOne({ _id: recipeId });
+  const recipe = await Recipes.findOne({ _id: recipeId })
+    .populate({
+      path: 'ingredients.id',
+      select: 'name -_id',
+    })
+    .lean();
+
+  if (recipe) {
+    recipe.ingredients = recipe.ingredients.map(({ id, measure }) => ({
+      name: id?.name || 'Unknown',
+      measure,
+    }));
+  }
 
   return recipe;
 };
