@@ -28,14 +28,14 @@ export const registerUserController = async (req, res) => {
 };
 
 export const loginUserController = async (req, res) => {
-  let user = await loginUser(req.body.email, req.body.password);
+  const user = await loginUser(req.body.email, req.body.password);
   setupSession(res, user);
-  user = user._doc;
-  delete user.password;
+  const userInfo = user._doc;
+  delete userInfo.password;
   res.status(200).json({
     status: 200,
     message: 'Successfully logged in an user!',
-    data: { ...user, accessToken: user.accessToken },
+    data: { ...userInfo, accessToken: user.accessToken },
   });
 };
 
