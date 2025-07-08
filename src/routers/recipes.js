@@ -14,6 +14,7 @@ import {
   removeFavoriteReceptController,
 } from '../controllers/recipes.js';
 import { validationCreateRecipe } from '../validation/recept.js';
+import { parseIngredients } from '../middlewares/parseIngredient.js';
 
 const router = Router();
 
@@ -31,6 +32,7 @@ router.post(
   '/',
   authenticate,
   upload.single('thumb'),
+  parseIngredients,
   validateBody(validationCreateRecipe),
   ctrlWrapper(createReceptController),
 );
