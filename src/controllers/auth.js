@@ -8,10 +8,14 @@ import {
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
+    secure: true,
+    sameSite: 'None',
     expires: session.refreshTokenValidUntil,
   });
   res.cookie('sessionId', session._id, {
     httpOnly: true,
+    secure: true,
+    sameSite: 'None',
     expires: session.refreshTokenValidUntil,
   });
 };
@@ -30,6 +34,7 @@ export const registerUserController = async (req, res) => {
 export const loginUserController = async (req, res) => {
   const user = await loginUser(req.body.email, req.body.password);
   setupSession(res, user);
+  console.log('🍪 Cookies:', req.cookies);
   const userInfo = user._doc;
   delete userInfo.password;
   res.status(200).json({
